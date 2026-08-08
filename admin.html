@@ -720,8 +720,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 //    after deploying server.js to Render.
 //    Example: "https://prepxpert-api.onrender.com"
 // =====================================================
-// ⚠️ UPDATE THIS after you deploy your new Render backend
-const BASE_URL = "https://backend-67yk.onrender.com";
+const BASE_URL = "https://prepxpert-backend-cbw1.onrender.com";
 
 // ── Wake-up retry helper ──────────────────────────────────────────────
 async function fetchWithRetry(url, options = {}, retries = 4, delayMs = 4000) {
@@ -1649,7 +1648,7 @@ function loadScoresFromDB() {
       if (rankingEl) rankingEl.innerHTML = `
         <div style="text-align:center;padding:40px;color:var(--err)">
           ⚠️ Could not connect to backend server after multiple retries.<br>
-          <small style="color:var(--muted)">Backend URL: <code style="font-size:11px">https://backend-67yk.onrender.com</code><br>Check your Render dashboard to make sure the service is deployed and running.</small><br>
+          <small style="color:var(--muted)">Backend URL: <code style="font-size:11px">https://prepxpert-backend-cbw1.onrender.com</code><br>Check your Render dashboard to make sure the service is deployed and running.</small><br>
           <button class="btn btn-ghost btn-sm" style="margin-top:12px" onclick="loadScoresFromDB()">Retry</button>
         </div>`;
     })
