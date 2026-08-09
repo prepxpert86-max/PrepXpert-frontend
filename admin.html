@@ -309,6 +309,14 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   </div>
   <div id="nt-stream-info" style="font-size:12px;color:var(--muted);background:#f8f9ff;padding:8px 12px;border-radius:6px;margin-bottom:12px;"></div>
   <div class="fgrp"><label>Description</label><input type="text" id="nt-desc" placeholder="Short description"></div>
+  <div style="background:#fff8e6;border-radius:10px;padding:14px;margin-top:10px;margin-bottom:10px;border:1px solid #ffe0a3;">
+    <div style="font-size:12px;font-weight:700;color:#8a5a00;margin-bottom:10px;letter-spacing:.3px;">🔢 QUESTIONS PER SECTION (leave blank for stream default)</div>
+    <div class="frow c3">
+      <div class="fgrp"><label id="nt-qcount-1-lbl">Physics</label><input type="number" min="1" id="nt-qcount-1" placeholder="default"></div>
+      <div class="fgrp"><label id="nt-qcount-2-lbl">Chemistry</label><input type="number" min="1" id="nt-qcount-2" placeholder="default"></div>
+      <div class="fgrp"><label id="nt-qcount-3-lbl">3rd Subject</label><input type="number" min="1" id="nt-qcount-3" placeholder="default"></div>
+    </div>
+  </div>
   <div style="background:#f0f2ff;border-radius:10px;padding:14px;margin-top:10px;border:1px solid #c5cae9;">
     <div style="font-size:12px;font-weight:700;color:var(--pri);margin-bottom:10px;letter-spacing:.3px;">📚 TOPICS COVERED (shown to students on test card)</div>
     <div class="fgrp" style="margin-bottom:10px"><label id="nt-phy-lbl">⚡ Physics Topics</label><input type="text" id="nt-phy-topics" placeholder="e.g. Kinematics, Laws of Motion, Work &amp; Energy"></div>
@@ -762,6 +770,13 @@ function loadState(){
 
 function pushToStudent(){
   localStorage.setItem('mhtcet_student_data', JSON.stringify({tests:state.tests, settings:state.settings}));
+  // Also save to the database so contact info etc. reaches EVERY device (Android/APK included),
+  // not just the browser the admin happens to be using.
+  fetchWithRetry(BASE_URL + "/save-settings", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(state.settings)
+  }).catch(() => { /* non-fatal: local copy still works for this device */ });
 }
 
 function saveAll(){
@@ -1413,22 +1428,27 @@ function updateNewTestModal(){
   const info=document.getElementById('nt-stream-info');
   const thirdLbl=document.getElementById('nt-third-lbl');
   const thirdInp=document.getElementById('nt-third-topics');
+  const q3Lbl=document.getElementById('nt-qcount-3-lbl');
   if(s==='pcm'){
     info.textContent='50 Physics + 50 Chemistry + 50 Mathematics · 200 Marks';
     thirdLbl.textContent='📐 Mathematics Topics';
     thirdInp.placeholder='e.g. Algebra, Calculus, Trigonometry';
+    q3Lbl.textContent='Mathematics';
   } else if(s==='pcb'){
     info.textContent='50 Physics + 50 Chemistry + 100 Biology · 200 Marks';
     thirdLbl.textContent='🧬 Biology Topics';
     thirdInp.placeholder='e.g. Cell Biology, Genetics, Ecology';
+    q3Lbl.textContent='Biology';
   } else if(s==='jee'){
     info.textContent='30 Physics + 30 Chemistry + 30 Mathematics · 360 Marks · Last 5 Numerical per subject';
     thirdLbl.textContent='📐 Mathematics Topics';
     thirdInp.placeholder='e.g. Calculus, Algebra, Coordinate Geometry';
+    q3Lbl.textContent='Mathematics';
   } else {
     info.textContent='45 Physics + 45 Chemistry + 90 Biology · 720 Marks · Negative Marking (-1 per wrong)';
     thirdLbl.textContent='🧬 Biology Topics';
     thirdInp.placeholder='e.g. Human Physiology, Genetics, Plant Kingdom';
+    q3Lbl.textContent='Biology';
   }
 }
 
@@ -1442,8 +1462,14 @@ function addNewTest(){
   let phyTopics=document.getElementById('nt-phy-topics').value.trim();
   let cheTopics=document.getElementById('nt-che-topics').value.trim();
   let thirdTopics=document.getElementById('nt-third-topics').value.trim();
+  let q1=document.getElementById('nt-qcount-1').value.trim();
+  let q2=document.getElementById('nt-qcount-2').value.trim();
+  let q3=document.getElementById('nt-qcount-3').value.trim();
+  let customMaxQ = (q1||q2||q3) ? [q1||null, q2||null, q3||null].map(v=>v?parseInt(v,10):null) : null;
   let newId=state.tests.length?Math.max(...state.tests.map(t=>t.id||0))+1:0;
-  state.tests.push({id:newId,name,stream,active:false,free,desc:desc||streamDesc,topics:{phy:phyTopics,che:cheTopics,third:thirdTopics},qbank:{0:[],1:[],2:[]}});
+  let newTest={id:newId,name,stream,active:false,free,desc:desc||streamDesc,topics:{phy:phyTopics,che:cheTopics,third:thirdTopics},qbank:{0:[],1:[],2:[]}};
+  if(customMaxQ) newTest.customMaxQ = customMaxQ;
+  state.tests.push(newTest);
   closeModal('new-test-modal');
   saveAll(); renderTestsTable(); populateSelects(); renderDashboard();
   toast(`Added ${name} [${stream.toUpperCase()}]`);
@@ -1455,6 +1481,9 @@ function openNewTestModal(){
   document.getElementById('nt-phy-topics').value='';
   document.getElementById('nt-che-topics').value='';
   document.getElementById('nt-third-topics').value='';
+  document.getElementById('nt-qcount-1').value='';
+  document.getElementById('nt-qcount-2').value='';
+  document.getElementById('nt-qcount-3').value='';
   document.getElementById('nt-stream').value='pcm';
   document.getElementById('nt-type').value='1';
   updateNewTestModal();
