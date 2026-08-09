@@ -846,6 +846,26 @@ function loadData(){
   tests=DEFAULT_TESTS;
 }
 
+// Fetch the live, shared question bank from the database so every device
+// (laptop, phone, APK) sees the SAME questions instead of only whatever
+// happens to be cached in that browser's local storage.
+async function syncFromServer(){
+  try{
+    const res = await fetchWithRetry(`${API}/questions`, {}, 2, 2000);
+    const data = await res.json();
+    if(Array.isArray(data) && data.length){
+      data.forEach(t=>{ if(!t.stream)t.stream='pcm'; if(!t.qbank)t.qbank={0:[],1:[],2:[]}; });
+      tests = data;
+      localStorage.setItem('mhtcet_student_data', JSON.stringify({tests, settings}));
+      // Re-render whatever screen is currently relevant with the fresh data
+      renderHero(); renderSubStrip(); renderHome();
+      console.log(`✅ Synced ${data.length} test(s) from server`);
+    }
+  }catch(e){
+    console.warn('⚠️ Could not sync questions from server, using local/default data:', e.message);
+  }
+}
+
 // ═══════════════════════ STREAM SWITCHING ═══════════════════════
 function setStream(s){
   curStream=s;
@@ -1599,6 +1619,7 @@ function enterApp(){
   if(currentUser)document.getElementById('hdr-user').textContent='👤 '+currentUser.name.split(' ')[0];
   if(currentUser?.paid) localStorage.setItem('mhtcet_full_access','1');
   loadData(); renderHero(); renderSubStrip(); renderHome(); showScr('hs');
+  syncFromServer(); // fetch the real shared question bank in the background
 }
 function showLoginScreen(){
   document.getElementById('login-scr').style.display='flex';
