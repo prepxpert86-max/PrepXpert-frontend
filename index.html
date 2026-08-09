@@ -1259,24 +1259,36 @@ function showResults(){
     const maxScore=actualQ*sub.marks;
     secStats.push({c,w,sk,sc,neg,tot:maxScore});
     totScore+=sc; totC+=c; totW+=w; totS+=sk; totNeg+=neg;
-  });const name = prompt("Enter your name:");
+  });
+  let name = prompt("Enter your name:");
+  while (name !== null && name.trim() === '') {
+    name = prompt("Please enter a valid name to save your result:");
+  }
 
   // Calculate max possible marks BEFORE saving so we can send it as total
   const totalMarks=SUBS.reduce((a,s)=>a+s.maxQ*s.marks,0);
 
-fetchWithRetry(`${API}/save-result`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    name: name,
-    score: totScore,
-    total: totalMarks,
-    type: curTest.stream.toUpperCase()
+if (name === null) {
+  console.warn("Name entry cancelled — result not saved.");
+  toast('⚠️ Result not saved — no name entered.');
+} else {
+  fetchWithRetry(`${API}/save-result`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: name.trim(),
+      score: totScore,
+      total: totalMarks,
+      type: curTest.stream.toUpperCase()
+    })
   })
-})
-.then(res => res.json())
-.then(data => { console.log("Saved ✅", data); })
-.catch(err => { console.error("Error saving result ❌", err); toast('⚠️ Could not save result – server may be waking up. Try again.'); });
+  .then(res => res.json())
+  .then(data => { console.log("Saved ✅", data); toast('✅ Result saved!'); })
+  .catch(err => {
+    console.error("Error saving result ❌", err);
+    toast('⚠️ Could not save result — check your internet connection or try again in a moment.');
+  });
+}
   const att=totC+totW, acc=att>0?Math.round(totC/att*100):0;
 
   // Hero
