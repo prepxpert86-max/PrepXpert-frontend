@@ -764,21 +764,24 @@ function pushToStudent(){
   localStorage.setItem('mhtcet_student_data', JSON.stringify({tests:state.tests, settings:state.settings}));
 }
 
-function saveAll(){  let questions = [
-  { question: "Test Question 1" }
-];
+function saveAll(){
   localStorage.setItem('mhtcet_admin_data', JSON.stringify({tests:state.tests, settings:state.settings}));
-  fetchWithRetry(BASE_URL + "/add-questions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(state.tests)
-  })
-  .then(res => res.json())
-  .then(() => { toast('✅ Saved to DB'); })
-  .catch(() => { toast('⚠️ DB save failed — server may be waking up, retry in 30s'); });
+
+  // Clear old DB documents first, then insert the current full test set,
+  // so the database always reflects the latest state (no duplicate pile-up).
+  fetchWithRetry(BASE_URL + "/clear-questions", { method: "DELETE" })
+    .then(() => fetchWithRetry(BASE_URL + "/add-questions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(state.tests)
+    }))
+    .then(res => res.json())
+    .then(() => { toast('✅ Saved to DB'); })
+    .catch(() => { toast('⚠️ DB save failed — server may be waking up, retry in 30s'); });
+
   pushToStudent();
   localStorage.setItem('mhtcet_users', JSON.stringify(studentData.users));
-  
+
   document.getElementById('last-saved').textContent='Saved '+new Date().toLocaleTimeString();
   updateSyncStatus(); toast('✅ Saved & synced to student app');
 }
