@@ -5,14 +5,14 @@
 <meta name="theme-color" content="#0c465a">
 <link rel="icon" href="/icon-192.png">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>PrepXpert Test Series</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 <style>
 :root{--pri:#1a237e;--pri2:#283593;--acc:#ff6f00;--acc2:#ffa000;--ok:#1b5e20;--err:#b71c1c;--phy:#1565c0;--che:#6a1b9a;--mat:#1b5e20;--bio:#006064;--neet:#880e4f;--jee:#e65100;--jee2:#bf360c;--bg:#eef0f5;--card:#fff;--txt:#111827;--muted:#6b7280;--bdr:#e2e6f0;--ans:#1b5e20;--skp:#e65100;--mkd:#6a1b9a;--nv:#90a4ae;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);}
 .hdr{background:linear-gradient(135deg,#0d1b6e,var(--pri),var(--pri2));color:#fff;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3);}
 .logo{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;letter-spacing:.5px;}
 .logo span{color:var(--acc2);}
@@ -380,7 +380,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 <div id="login-scr" style="display:none">
   <div class="login-card">
     <div class="login-logo">PrepXpert</div>
-    <div class="login-sub">Test Series 2025 — Student Portal</div>
+    <div class="login-sub">Test Series — Student Portal</div>
     <div class="login-tabs">
       <div class="ltab on" id="tab-login" onclick="switchLoginTab('login')">Sign In</div>
       <div class="ltab" id="tab-register" onclick="switchLoginTab('register')">Register</div>
@@ -421,7 +421,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 <!-- HOME -->
 <div class="scr on" id="hs">
   <div class="hero pcm" id="hero-banner">
-    <h1 id="hero-title">PrepXpert Test Series 2025</h1>
+    <h1 id="hero-title">PrepXpert Test Series</h1>
     <p id="hero-desc">Practice with authentic past papers. Choose your stream below.</p>
     <div class="hero-chips" id="hero-chips">
       <div class="hchip"><strong>200</strong>Total Marks</div>
@@ -771,11 +771,22 @@ const JEE_SUBS=[
   {name:'Mathematics',marks:4,neg:1,color:'var(--jee)',cls:'jee', maxQ:30, numericalStart:25, icon:'📐'}
 ];
 function getSubs(){ 
-  if(!curTest) return PCM_SUBS;
-  if(curTest.stream==='neet') return NEET_SUBS;
-  if(curTest.stream==='pcb') return PCB_SUBS;
-  if(curTest.stream==='jee') return JEE_SUBS;
-  return PCM_SUBS;
+  let base;
+  if(!curTest) base = PCM_SUBS;
+  else if(curTest.stream==='neet') base = NEET_SUBS;
+  else if(curTest.stream==='pcb') base = PCB_SUBS;
+  else if(curTest.stream==='jee') base = JEE_SUBS;
+  else base = PCM_SUBS;
+
+  // If this specific test has custom per-section question counts set by the admin,
+  // apply them on top of the stream's default template.
+  if(curTest && Array.isArray(curTest.customMaxQ) && curTest.customMaxQ.length===base.length){
+    return base.map((s,i)=>{
+      const n = parseInt(curTest.customMaxQ[i],10);
+      return (n>0) ? {...s, maxQ:n} : s;
+    });
+  }
+  return base;
 }
 let SUBS=PCM_SUBS;
 
@@ -856,14 +867,24 @@ async function syncFromServer(){
     if(Array.isArray(data) && data.length){
       data.forEach(t=>{ if(!t.stream)t.stream='pcm'; if(!t.qbank)t.qbank={0:[],1:[],2:[]}; });
       tests = data;
-      localStorage.setItem('mhtcet_student_data', JSON.stringify({tests, settings}));
-      // Re-render whatever screen is currently relevant with the fresh data
-      renderHero(); renderSubStrip(); renderHome();
-      console.log(`✅ Synced ${data.length} test(s) from server`);
     }
   }catch(e){
     console.warn('⚠️ Could not sync questions from server, using local/default data:', e.message);
   }
+
+  try{
+    const res2 = await fetchWithRetry(`${API}/settings`, {}, 2, 2000);
+    const s = await res2.json();
+    if(s && Object.keys(s).length){
+      settings = {...settings, ...s};
+    }
+  }catch(e){
+    console.warn('⚠️ Could not sync settings from server, using local/default data:', e.message);
+  }
+
+  localStorage.setItem('mhtcet_student_data', JSON.stringify({tests, settings}));
+  renderHero(); renderSubStrip(); renderHome();
+  console.log(`✅ Synced from server`);
 }
 
 // ═══════════════════════ STREAM SWITCHING ═══════════════════════
@@ -884,7 +905,7 @@ function renderHero(){
   const chips=document.getElementById('hero-chips');
   if(curStream==='neet'){
     hero.className='hero neet-hero';
-    title.textContent='NEET Test Series 2025';
+    title.textContent='NEET Test Series';
     desc.textContent='National Eligibility cum Entrance Test preparation — 180 questions, 720 marks, negative marking.';
     chips.innerHTML=`<div class="hchip neet-chip"><strong>720</strong>Total Marks</div>
       <div class="hchip neet-chip"><strong>+4 / −1</strong>Marking Scheme</div>
@@ -893,7 +914,7 @@ function renderHero(){
   } else if(curStream==='jee'){
     hero.className='hero neet-hero';
     hero.style.background='linear-gradient(140deg,#bf360c 0%,#e65100 50%,#ff6f00 100%)';
-    title.textContent='PrepXpert JEE Test Series 2025';
+    title.textContent='PrepXpert JEE Test Series';
     desc.textContent='JEE preparation — 90 questions, 360 marks, negative marking. Last 5 per subject are numerical fill-in-the-blank.';
     chips.innerHTML=`<div class="hchip neet-chip"><strong>360</strong>Total Marks</div>
       <div class="hchip neet-chip"><strong>+4 / −1</strong>MCQ Marking</div>
@@ -902,7 +923,7 @@ function renderHero(){
   } else if(curStream==='pcb'){
     hero.className='hero pcb';
     hero.style.background='';
-    title.textContent='PrepXpert PCB Test Series 2025';
+    title.textContent='PrepXpert PCB Test Series';
     desc.textContent='Physics, Chemistry & Biology — 200 questions, 200 marks, no negative marking.';
     chips.innerHTML=`<div class="hchip"><strong>200</strong>Total Marks</div>
       <div class="hchip"><strong>3 Hours</strong>Duration</div>
@@ -911,7 +932,7 @@ function renderHero(){
   } else {
     hero.className='hero pcm';
     hero.style.background='';
-    title.textContent='PrepXpert PCM Test Series 2025';
+    title.textContent='PrepXpert PCM Test Series';
     desc.textContent='Physics, Chemistry & Mathematics — 150 questions, 200 marks, no negative marking.';
     chips.innerHTML=`<div class="hchip"><strong>200</strong>Total Marks</div>
       <div class="hchip"><strong>3 Hours</strong>Duration</div>
