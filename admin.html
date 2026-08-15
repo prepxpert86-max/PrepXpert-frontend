@@ -269,6 +269,12 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .num-input-preview{background:#fffde7;border:1px solid #ffe082;border-radius:6px;padding:6px 10px;font-size:12px;color:#5d4037;margin-top:4px;}
 .sb-bottom{padding:14px 20px;font-size:11px;color:rgba(255,255,255,.35);border-top:1px solid rgba(255,255,255,.08);}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  if (window['pdfjsLib']) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+</script>
 </head>
 <body>
 <div id="admin-gate">
@@ -317,6 +323,12 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
       <div class="fgrp"><label id="nt-qcount-3-lbl">3rd Subject</label><input type="number" min="1" id="nt-qcount-3" placeholder="default"></div>
     </div>
   </div>
+  <div style="background:#eceff1;border-radius:10px;padding:14px;margin-top:10px;margin-bottom:10px;border:1px solid #b0bec5;">
+    <label class="check-row" style="margin-bottom:8px"><input type="checkbox" id="nt-is-pyp" onchange="document.getElementById('nt-year-row').style.display=this.checked?'block':'none'"><span style="font-weight:700;color:#37474f">📄 This is a Previous Year Paper</span></label>
+    <div id="nt-year-row" style="display:none">
+      <div class="fgrp"><label>Year</label><input type="number" id="nt-year" placeholder="e.g. 2024" min="1990" max="2100"></div>
+    </div>
+  </div>
   <div style="background:#f0f2ff;border-radius:10px;padding:14px;margin-top:10px;border:1px solid #c5cae9;">
     <div style="font-size:12px;font-weight:700;color:var(--pri);margin-bottom:10px;letter-spacing:.3px;">📚 TOPICS COVERED (shown to students on test card)</div>
     <div class="fgrp" style="margin-bottom:10px"><label id="nt-phy-lbl">⚡ Physics Topics</label><input type="text" id="nt-phy-topics" placeholder="e.g. Kinematics, Laws of Motion, Work &amp; Energy"></div>
@@ -344,6 +356,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     <div class="nav-item" onclick="navTo('anskey',this)">🔑 Answer Key</div>
     <div class="nav-section">USERS</div>
     <div class="nav-item" onclick="navTo('students',this)">👥 Students & Ranking</div>
+    <div class="nav-item" onclick="navTo('notifications',this)">🔔 Notifications</div>
     
     <div class="nav-section">CONFIG</div>
     <div class="nav-item" onclick="navTo('settings',this)">⚙ Settings</div>
@@ -385,19 +398,27 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
           <div class="fgrp"><label>Select Test</label><select id="bulk-test" onchange="updateBulkDynamic()"></select></div>
           <div class="fgrp"><label>Stream Info</label><input id="bulk-stream-display" readonly style="background:#f8f9ff;"></div>
         </div>
+        <div style="background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:10px;padding:14px 16px;margin-bottom:16px">
+          <div style="font-weight:700;color:#1b5e20;font-size:13px;margin-bottom:6px">🔀 Have ONE combined PDF with all subjects together?</div>
+          <div style="font-size:11.5px;color:#33691e;margin-bottom:10px">Upload it once here and it'll auto-detect "PHYSICS" / "CHEMISTRY" / "MATHEMATICS" (or "BIOLOGY") section headers and split the text into the right boxes below automatically.</div>
+          <label class="btn btn-sm btn-ok" style="cursor:pointer"><input type="file" accept="application/pdf" style="display:none" onchange="extractCombinedPdf(this,['bulk-phy','bulk-che','bulk-mat'],/math|calculus|algebra|biology|botany|zoology/i)">📄 Upload Combined PDF (auto-split)</label>
+        </div>
         <div class="bulk-section section-phy">
           <div class="bulk-section-title">🔬 PHYSICS — 50 Questions</div>
           <textarea id="bulk-phy" rows="8" placeholder="Q1. What is Newton's first law?&#10;A) Law of inertia&#10;B) Law of acceleration&#10;C) Law of action-reaction&#10;D) Law of gravitation&#10;Answer : A (An object at rest stays at rest unless acted upon by a force — this is inertia.)"></textarea>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><label class="btn btn-sm btn-ghost" style="cursor:pointer;margin:0">📄 Upload PDF <input type="file" accept="application/pdf" style="display:none" onchange="extractPdfToTextarea(this,'bulk-phy')"></label><span style="font-size:11px;color:var(--muted)">PDF must follow the format above — extracted text is appended below, review before importing.</span></div>
           <div><button class="btn btn-sm btn-ghost" onclick="previewSection('phy')">👁 Preview</button><span id="phy-count" style="margin-left:12px;font-size:12px;"></span></div>
         </div>
         <div class="bulk-section section-che">
           <div class="bulk-section-title">⚗️ CHEMISTRY — 50 Questions</div>
           <textarea id="bulk-che" rows="8" placeholder="Q1. Which element has atomic number 6?&#10;A) Nitrogen&#10;B) Carbon&#10;C) Oxygen&#10;D) Boron&#10;Answer : B (Carbon has atomic number 6 and is the basis of organic chemistry.)"></textarea>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><label class="btn btn-sm btn-ghost" style="cursor:pointer;margin:0">📄 Upload PDF <input type="file" accept="application/pdf" style="display:none" onchange="extractPdfToTextarea(this,'bulk-che')"></label><span style="font-size:11px;color:var(--muted)">PDF must follow the format above — extracted text is appended below, review before importing.</span></div>
           <div><button class="btn btn-sm btn-ghost" onclick="previewSection('che')">👁 Preview</button><span id="che-count" style="margin-left:12px;font-size:12px;"></span></div>
         </div>
         <div class="bulk-section section-mat">
           <div class="bulk-section-title" id="third-section-title">📐 MATHEMATICS — 50 Questions</div>
           <textarea id="bulk-mat" rows="8" placeholder="Q1. Integrate ∫x²dx&#10;A) x³+C&#10;B) x³/3+C&#10;C) 2x+C&#10;D) x²/2+C&#10;Answer : B (By power rule: ∫xⁿdx = xⁿ⁺¹/(n+1)+C, so ∫x²dx = x³/3+C.)"></textarea>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><label class="btn btn-sm btn-ghost" style="cursor:pointer;margin:0">📄 Upload PDF <input type="file" accept="application/pdf" style="display:none" onchange="extractPdfToTextarea(this,'bulk-mat')"></label><span style="font-size:11px;color:var(--muted)">PDF must follow the format above — extracted text is appended below, review before importing.</span></div>
           <div><button class="btn btn-sm btn-ghost" onclick="previewSection('mat')">👁 Preview</button><span id="mat-count" style="margin-left:12px;font-size:12px;"></span></div>
         </div>
         <div class="frow c2" style="margin-top:8px">
@@ -433,22 +454,30 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
           <div class="fgrp"><label>Select NEET Test</label><select id="neet-bulk-test"></select></div>
           <div class="fgrp"><label>Exam Info</label><input value="NEET: 45 Physics + 45 Chemistry + 90 Biology" readonly style="background:#fce4ec;color:var(--neet);font-weight:700;"></div>
         </div>
+        <div style="background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:10px;padding:14px 16px;margin-bottom:16px">
+          <div style="font-weight:700;color:#1b5e20;font-size:13px;margin-bottom:6px">🔀 Have ONE combined PDF with all subjects together?</div>
+          <div style="font-size:11.5px;color:#33691e;margin-bottom:10px">Upload it once here and it'll auto-detect "PHYSICS" / "CHEMISTRY" / "BIOLOGY" section headers and split the text into the right boxes below automatically.</div>
+          <label class="btn btn-sm btn-ok" style="cursor:pointer"><input type="file" accept="application/pdf" style="display:none" onchange="extractCombinedPdf(this,['neet-bulk-phy','neet-bulk-che','neet-bulk-bio'],/biology|botany|zoology/i)">📄 Upload Combined PDF (auto-split)</label>
+        </div>
 
         <div class="bulk-section section-phy">
           <div class="bulk-section-title">🔬 PHYSICS — 45 Questions (+4 / −1)</div>
           <textarea id="neet-bulk-phy" rows="8" placeholder="Q1. A body of mass 2 kg is moving with velocity 10 m/s. Its kinetic energy is?&#10;A) 50 J&#10;B) 100 J&#10;C) 200 J&#10;D) 20 J&#10;Answer : B (KE = ½mv² = ½ × 2 × 10² = 100 J)"></textarea>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><label class="btn btn-sm btn-ghost" style="cursor:pointer;margin:0">📄 Upload PDF <input type="file" accept="application/pdf" style="display:none" onchange="extractPdfToTextarea(this,'neet-bulk-phy')"></label><span style="font-size:11px;color:var(--muted)">PDF must follow the format above — extracted text is appended below, review before importing.</span></div>
           <div><button class="btn btn-sm btn-ghost" onclick="previewNeetSection('phy')">👁 Preview</button><span id="neet-phy-count" style="margin-left:12px;font-size:12px;"></span></div>
         </div>
 
         <div class="bulk-section section-che">
           <div class="bulk-section-title">⚗️ CHEMISTRY — 45 Questions (+4 / −1)</div>
           <textarea id="neet-bulk-che" rows="8" placeholder="Q1. The hybridisation of carbon in CH₄ is?&#10;A) sp&#10;B) sp²&#10;C) sp³&#10;D) sp³d&#10;Answer : C (Methane has 4 bond pairs, no lone pairs → sp³ hybridisation, tetrahedral geometry.)"></textarea>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><label class="btn btn-sm btn-ghost" style="cursor:pointer;margin:0">📄 Upload PDF <input type="file" accept="application/pdf" style="display:none" onchange="extractPdfToTextarea(this,'neet-bulk-che')"></label><span style="font-size:11px;color:var(--muted)">PDF must follow the format above — extracted text is appended below, review before importing.</span></div>
           <div><button class="btn btn-sm btn-ghost" onclick="previewNeetSection('che')">👁 Preview</button><span id="neet-che-count" style="margin-left:12px;font-size:12px;"></span></div>
         </div>
 
         <div class="bulk-section section-neet-bio">
           <div class="bulk-section-title">🧬 BIOLOGY — 90 Questions (+4 / −1)</div>
           <textarea id="neet-bulk-bio" rows="10" placeholder="Q1. Which organelle is called the powerhouse of the cell?&#10;A) Nucleus&#10;B) Ribosome&#10;C) Mitochondria&#10;D) Golgi body&#10;Answer : C (Mitochondria produce ATP via cellular respiration — hence the 'powerhouse' nickname.)"></textarea>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><label class="btn btn-sm btn-ghost" style="cursor:pointer;margin:0">📄 Upload PDF <input type="file" accept="application/pdf" style="display:none" onchange="extractPdfToTextarea(this,'neet-bulk-bio')"></label><span style="font-size:11px;color:var(--muted)">PDF must follow the format above — extracted text is appended below, review before importing.</span></div>
           <div><button class="btn btn-sm btn-ghost" onclick="previewNeetSection('bio')">👁 Preview</button><span id="neet-bio-count" style="margin-left:12px;font-size:12px;"></span></div>
         </div>
 
@@ -490,22 +519,30 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
           <div class="fgrp"><label>Select JEE Test</label><select id="jee-bulk-test"></select></div>
           <div class="fgrp"><label>Exam Info</label><input value="JEE: 30 Phy + 30 Chem + 30 Maths | Last 5 Numerical" readonly style="background:#fff3e0;color:#e65100;font-weight:700;"></div>
         </div>
+        <div style="background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:10px;padding:14px 16px;margin-bottom:16px">
+          <div style="font-weight:700;color:#1b5e20;font-size:13px;margin-bottom:6px">🔀 Have ONE combined PDF with all subjects together?</div>
+          <div style="font-size:11.5px;color:#33691e;margin-bottom:10px">Upload it once here and it'll auto-detect "PHYSICS" / "CHEMISTRY" / "MATHEMATICS" section headers and split the text into the right boxes below automatically.</div>
+          <label class="btn btn-sm btn-ok" style="cursor:pointer"><input type="file" accept="application/pdf" style="display:none" onchange="extractCombinedPdf(this,['jee-bulk-phy','jee-bulk-che','jee-bulk-mat'],/math|calculus|algebra|trigonometry|geometry/i)">📄 Upload Combined PDF (auto-split)</label>
+        </div>
 
         <div class="bulk-section section-phy">
           <div class="bulk-section-title">🔬 PHYSICS — 30 Questions (Q1–Q25 MCQ +4/−1, Q26–Q30 Numerical +4)</div>
           <textarea id="jee-bulk-phy" rows="8" placeholder="Q1. A particle moves with v=3t² m/s. Acceleration at t=2s?&#10;A) 6 m/s²&#10;B) 12 m/s²&#10;C) 18 m/s²&#10;D) 24 m/s²&#10;Answer : B (a=dv/dt=6t; at t=2, a=12 m/s²)&#10;&#10;Q26. Ball thrown up at 20 m/s (g=10). Max height (m)?&#10;Answer : 20 (v²=u²-2gh, h=20 m)"></textarea>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><label class="btn btn-sm btn-ghost" style="cursor:pointer;margin:0">📄 Upload PDF <input type="file" accept="application/pdf" style="display:none" onchange="extractPdfToTextarea(this,'jee-bulk-phy')"></label><span style="font-size:11px;color:var(--muted)">PDF must follow the format above — extracted text is appended below, review before importing.</span></div>
           <div><button class="btn btn-sm btn-ghost" onclick="previewJeeSection('phy')">👁 Preview</button><span id="jee-phy-count" style="margin-left:12px;font-size:12px;"></span></div>
         </div>
 
         <div class="bulk-section section-che">
           <div class="bulk-section-title">⚗️ CHEMISTRY — 30 Questions (Q1–Q25 MCQ +4/−1, Q26–Q30 Numerical +4)</div>
           <textarea id="jee-bulk-che" rows="8" placeholder="Q1. Hybridisation of carbon in CO₂?&#10;A) sp&#10;B) sp²&#10;C) sp³&#10;D) sp³d&#10;Answer : A (CO₂ linear, sp)&#10;&#10;Q26. Molar mass of H₂SO₄ (g/mol)?&#10;Answer : 98 (2+32+64=98)"></textarea>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><label class="btn btn-sm btn-ghost" style="cursor:pointer;margin:0">📄 Upload PDF <input type="file" accept="application/pdf" style="display:none" onchange="extractPdfToTextarea(this,'jee-bulk-che')"></label><span style="font-size:11px;color:var(--muted)">PDF must follow the format above — extracted text is appended below, review before importing.</span></div>
           <div><button class="btn btn-sm btn-ghost" onclick="previewJeeSection('che')">👁 Preview</button><span id="jee-che-count" style="margin-left:12px;font-size:12px;"></span></div>
         </div>
 
         <div class="bulk-section section-mat">
           <div class="bulk-section-title">📐 MATHEMATICS — 30 Questions (Q1–Q25 MCQ +4/−1, Q26–Q30 Numerical +4)</div>
           <textarea id="jee-bulk-mat" rows="8" placeholder="Q1. ∫₀¹ x² dx =&#10;A) 1/2&#10;B) 1/3&#10;C) 1/4&#10;D) 2/3&#10;Answer : B (x³/3 from 0 to 1 = 1/3)&#10;&#10;Q26. Number of real roots of x³ - 3x + 2 = 0?&#10;Answer : 3 (factor: (x-1)²(x+2)=0, roots 1,1,-2)"></textarea>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><label class="btn btn-sm btn-ghost" style="cursor:pointer;margin:0">📄 Upload PDF <input type="file" accept="application/pdf" style="display:none" onchange="extractPdfToTextarea(this,'jee-bulk-mat')"></label><span style="font-size:11px;color:var(--muted)">PDF must follow the format above — extracted text is appended below, review before importing.</span></div>
           <div><button class="btn btn-sm btn-ghost" onclick="previewJeeSection('mat')">👁 Preview</button><span id="jee-mat-count" style="margin-left:12px;font-size:12px;"></span></div>
         </div>
 
@@ -527,6 +564,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 
     <!-- Question Bank + Images -->
     <div class="page" id="page-questions">
+      <div class="card">
+        <div class="card-title">🖼 Extract Images from a PDF</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Upload the same PDF you imported questions from — any diagrams/figures inside it get pulled out automatically. Then just click "Attach to Q#" to drop one straight onto a question, no downloading/re-uploading needed.</div>
+        <label class="btn btn-ghost" style="cursor:pointer"><input type="file" accept="application/pdf" style="display:none" onchange="extractImagesFromPdf(this)">📄 Choose PDF & Extract Images</label>
+        <div id="pdf-img-status" style="font-size:12px;color:var(--muted);margin-top:8px"></div>
+        <div id="pdf-img-gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:14px"></div>
+      </div>
       <div class="card">
         <div class="card-title">Question Bank — Image Upload
           <div>
@@ -716,6 +760,29 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 
     </div>
 
+    <div class="page" id="page-notifications">
+      <div class="card">
+        <div class="card-title">🔔 Send a Notification to All Students</div>
+        <div style="background:#e3f2fd;border:1.5px solid #90caf9;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12.5px;color:#1565c0;line-height:1.7">
+          This appears in every student's notification bell (🔔) on the app — on laptop, mobile, and the Android app alike, since it's stored centrally.
+        </div>
+        <div class="fgrp" style="margin-bottom:12px">
+          <label>Title (optional)</label>
+          <input type="text" id="notif-title" placeholder="e.g. New Test Added!">
+        </div>
+        <div class="fgrp" style="margin-bottom:14px">
+          <label>Message *</label>
+          <textarea id="notif-message" rows="3" placeholder="e.g. A new NEET mock test is now live. Good luck!" style="width:100%;padding:10px 12px;border:1.5px solid var(--bdr);border-radius:8px;font-family:'Nunito',sans-serif;font-size:14px;resize:vertical"></textarea>
+        </div>
+        <button class="btn btn-ok" onclick="sendNotification()">📤 Send Notification</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📜 Sent Notifications</div>
+        <div id="notif-admin-list" style="font-size:13px;color:var(--muted)">Loading…</div>
+      </div>
+    </div>
+
   </div>
 </div>
 </div>
@@ -806,6 +873,7 @@ function updateSyncStatus(){
   if(el) el.innerHTML=`● ${studentData.users?.length||0} students`;
 }
 
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function toast(msg){
   let t=document.createElement('div'); t.className='toast'; t.textContent=msg;
   document.body.appendChild(t); setTimeout(()=>t.remove(),2800);
@@ -816,23 +884,43 @@ function toast(msg){
 // ══════════════════════════════════════════════════════
 function parseQuestionsFromText(text, maxCount=50){
   if(!text.trim()) return [];
-  const lines=text.split(/\r?\n/);
-  let questions=[], qText=[], opts=['','','',''], ans=-1, sol='', inSol=false;
+  // Pre-pass: split lines that contain MULTIPLE option markers into separate lines
+  // e.g. "A) Inertia   B) Acceleration   C) Action   D) Gravity" on one line
+  const preLines=text.split(/\r?\n/);
+  const lines=[];
+  const multiOptSplit=/(?=(?:^|\s)[\(\[]?[A-Da-d][\)\.\:\-\]]\s)/g;
+  preLines.forEach(raw=>{
+    const trimmed=raw.trim();
+    const markers=(trimmed.match(/[\(\[]?[A-Da-d][\)\.\:\-\]]\s/g)||[]).length;
+    if(markers>=2 && !/^Q?\s*\d+\s*[\.\)]/i.test(trimmed)){
+      const parts=trimmed.split(multiOptSplit).map(s=>s.trim()).filter(Boolean);
+      if(parts.length>=2){ lines.push(...parts); return; }
+    }
+    lines.push(raw);
+  });
+
+  let questions=[], qText=[], opts=['','','',''], ans=-1, sol='', inSol=false, numericalAns=null;
 
   const isQStart = l => /^(Q?\s*\d+)\s*[\.\)]\s+/i.test(l.trim());
   const extractQ = l => { let m=l.trim().match(/^Q?\s*\d+\s*[\.\)]\s+(.*)/i); return m?m[1].trim():l.trim(); };
+  const optKey = c => ({A:0,B:1,C:2,D:3}[c.toUpperCase()]);
 
   const finalize = ()=>{
-    if(qText.length && opts.some(o=>o.trim())){
-      questions.push({
-        q:qText.join(' ').substring(0,2000),
-        opts:opts.map(o=>o.trim()||'—'),
-        ans:ans>=0?ans:0,
-        sol:sol.trim(),
-        img:''
-      });
+    if(qText.length){
+      const hasOpts=opts.some(o=>o.trim());
+      if(hasOpts || numericalAns!==null){
+        questions.push({
+          q:qText.join(' ').substring(0,2000),
+          opts:hasOpts?opts.map(o=>o.trim()||'—'):['','','',''],
+          ans:ans>=0?ans:0,
+          sol:sol.trim(),
+          img:'',
+          isNumerical:!hasOpts && numericalAns!==null,
+          numericalAns:numericalAns!==null?numericalAns:undefined
+        });
+      }
     }
-    qText=[]; opts=['','','','']; ans=-1; sol=''; inSol=false;
+    qText=[]; opts=['','','','']; ans=-1; sol=''; inSol=false; numericalAns=null;
   };
 
   for(let line of lines){
@@ -841,29 +929,43 @@ function parseQuestionsFromText(text, maxCount=50){
     if(isQStart(l)){ finalize(); qText=[extractQ(l)]; continue; }
     if(!qText.length) continue;
 
-    // Option lines: A) / A. / (A) / [A]
+    // Option lines: A) / A. / (A) / [A]  (letters only — numeric markers like "1)" are
+    // deliberately NOT supported since they're ambiguous with question numbering)
     let optM=l.match(/^[\(\[]?\s*([A-Da-d])\s*[\)\.\:\-\]]\s*(.*)/i);
     if(optM && !inSol){
-      let idx={A:0,B:1,C:2,D:3}[optM[1].toUpperCase()];
+      let idx=optKey(optM[1]);
       if(idx!==undefined && optM[2].trim()){ opts[idx]=optM[2].trim(); continue; }
     }
 
-    // Answer line: "Answer : A (solution...)" OR "Answer: A" OR "Ans: A"
-    // Improved: captures everything after ( as solution
-    let ansM=l.match(/^(?:Ans(?:wer)?)\s*[:\-]?\s*\(?([A-Da-d])\)?[\s\.\-]*(.*)/i);
-    if(ansM){
-      ans={A:0,B:1,C:2,D:3}[ansM[1].toUpperCase()];
-      // Extract solution from rest: could be "(solution text)" or just "solution text"
-      let rest=ansM[2].trim();
-      // Remove wrapping parens if present
-      if(rest.startsWith('(')){ rest=rest.slice(1); if(rest.endsWith(')'))rest=rest.slice(0,-1); }
-      if(rest) sol=rest;
-      inSol=!!rest; // continue collecting sol on next lines if needed
-      continue;
+    // Answer line — accepts many common phrasings:
+    // "Answer : A (sol)"  "Ans: A"  "Correct Answer: B"  "Correct Option: C"  "Key: D"  "Right Answer: A"
+    const hasOptsSoFar=opts.some(o=>o.trim());
+    if(hasOptsSoFar){
+      let ansM=l.match(/^(?:Correct\s+)?(?:Ans(?:wer)?|Option|Key|Right\s+Answer)\s*[:\-]?\s*\(?([A-Da-d])\)?[\s\.\-]*(.*)/i);
+      if(ansM){
+        ans=optKey(ansM[1]);
+        let rest=ansM[2].trim();
+        if(rest.startsWith('(')){ rest=rest.slice(1); if(rest.endsWith(')'))rest=rest.slice(0,-1); }
+        if(rest) sol=rest;
+        inSol=!!rest;
+        continue;
+      }
+    } else {
+      // No options were given for this question — treat the answer as a plain
+      // numerical value (JEE-style numerical questions), e.g. "Answer : 20 (explanation)"
+      let numAnsM=l.match(/^(?:Correct\s+)?(?:Ans(?:wer)?|Key)\s*[:\-]?\s*(-?\d+(?:\.\d+)?)[\s\.\-]*(.*)/i);
+      if(numAnsM){
+        numericalAns=parseFloat(numAnsM[1]);
+        let rest=numAnsM[2].trim();
+        if(rest.startsWith('(')){ rest=rest.slice(1); if(rest.endsWith(')'))rest=rest.slice(0,-1); }
+        if(rest) sol=rest;
+        inSol=!!rest;
+        continue;
+      }
     }
 
-    // Solution line: "Solution: text" OR "Sol: text"
-    let solM=l.match(/^(?:Sol(?:ution)?)\s*[:\-]\s*(.*)/i);
+    // Solution line: "Solution: text" OR "Sol: text" OR "Explanation: text"
+    let solM=l.match(/^(?:Sol(?:ution)?|Explanation)\s*[:\-]\s*(.*)/i);
     if(solM){ sol=(sol?sol+' ':'')+solM[1].trim(); inSol=true; continue; }
 
     // If we're in solution mode, keep appending
@@ -891,6 +993,201 @@ function updateBulkDynamic(){
   let thirdLabel=isPCB?'🧬 BIOLOGY — 100 Questions':'📐 MATHEMATICS — 50 Questions';
   document.getElementById('bulk-stream-display').value=isPCB?'PCB: 50 Phy + 50 Chem + 100 Biology':'PCM: 50 Phy + 50 Chem + 50 Maths';
   document.getElementById('third-section-title').innerHTML=thirdLabel;
+}
+
+// ═══════════════════════ PDF TEXT EXTRACTION ═══════════════════════
+async function extractPdfToTextarea(inputEl, textareaId){
+  const file=inputEl.files[0];
+  if(!file)return;
+  if(file.type!=='application/pdf'){ toast('⚠ Please select a PDF file'); inputEl.value=''; return; }
+  if(!window.pdfjsLib){ toast('⚠ PDF reader failed to load. Check your internet connection and reload the page.'); inputEl.value=''; return; }
+
+  const textarea=document.getElementById(textareaId);
+  const originalPlaceholder=textarea.placeholder;
+  textarea.placeholder='⏳ Reading PDF, please wait…';
+  toast('⏳ Extracting text from PDF…');
+
+  try{
+    const buffer=await file.arrayBuffer();
+    const pdf=await pdfjsLib.getDocument({data:buffer}).promise;
+    let fullText='';
+    for(let p=1;p<=pdf.numPages;p++){
+      const page=await pdf.getPage(p);
+      const content=await page.getTextContent();
+      // Group text items by their approximate vertical position (line),
+      // since pdf.js gives individual text fragments, not full lines.
+      let lastY=null, line='';
+      content.items.forEach(item=>{
+        const y=Math.round(item.transform[5]);
+        if(lastY!==null && Math.abs(y-lastY)>2){
+          fullText+=line.trim()+'\n';
+          line='';
+        }
+        line+=item.str+' ';
+        lastY=y;
+      });
+      if(line.trim()) fullText+=line.trim()+'\n';
+      fullText+='\n';
+    }
+    const existing=textarea.value.trim();
+    textarea.value = existing ? (existing + '\n\n' + fullText.trim()) : fullText.trim();
+    toast(`✅ Extracted text from ${pdf.numPages} page(s). Review it below before importing — PDF formatting doesn't always come through perfectly.`);
+  }catch(e){
+    console.error('PDF extraction error:',e);
+    toast('⚠ Could not read this PDF. Make sure it\'s a valid, non-scanned (text-based) PDF file.');
+  }finally{
+    textarea.placeholder=originalPlaceholder;
+    inputEl.value='';
+  }
+}
+
+// ═══════════════════════ COMBINED PDF AUTO-SPLIT ═══════════════════════
+// For source PDFs that contain ALL subjects together (Physics + Chemistry + Math/Bio
+// in one document, as most real question papers do) — detects section header lines
+// and routes each chunk to the correct textarea automatically.
+// Splices "Answer : X" lines into question text using an ordered list of {num,letter}
+// answers — matched POSITIONALLY (1st question gets 1st answer, etc.), since question
+// numbering can restart per section (e.g. Section B starting back at Q1).
+function injectAnswerKeys(questionsText, answerPairs){
+  if(!answerPairs || !answerPairs.length) return questionsText;
+  const lines=questionsText.split('\n');
+  const isQStart = l => /^Q?\s*\d+\s*[\.\)]\s+/i.test(l.trim());
+  let out=[], qIdx=-1, pendingBlock=[];
+  const flush=()=>{
+    if(pendingBlock.length){
+      out.push(...pendingBlock);
+      if(qIdx>=0 && qIdx<answerPairs.length){
+        out.push(`Answer : ${answerPairs[qIdx].letter}`);
+      }
+    }
+    pendingBlock=[];
+  };
+  lines.forEach(l=>{
+    if(isQStart(l)){ flush(); qIdx++; }
+    pendingBlock.push(l);
+  });
+  flush();
+  return out.join('\n');
+}
+
+// Finds a separate "Answer Key(s)" section (very common in real exam PDFs, printed
+// AFTER all questions, often as a compact grid table), isolates it from the question
+// text so it doesn't pollute subject buckets, and extracts each subject's answers —
+// sorted by their PRINTED question number, since these tables are frequently laid out
+// column-major (e.g. "1(a) 6(d) 11(b)..." rather than reading order 1,2,3...).
+function extractAnswerKeyZone(fullText, thirdLabelWords){
+  const akMatch=fullText.match(/answer\s*keys?\b/i);
+  if(!akMatch) return {zoneText:'', beforeZone:fullText, answers:null};
+  const beforeZone=fullText.slice(0,akMatch.index);
+  let zone=fullText.slice(akMatch.index);
+  const solMatch=zone.match(/\b(solutions?|explanations?)\b/i);
+  if(solMatch && solMatch.index>20) zone=zone.slice(0,solMatch.index);
+
+  const lines=zone.split('\n');
+  const subjectKeywords={ phy:/physics/i, che:/chemistry/i, third:thirdLabelWords };
+  let buckets={phy:[],che:[],third:[]};
+  let current=null;
+  lines.forEach(l=>{
+    const t=l.trim();
+    if(t && t.length<=30){
+      if(subjectKeywords.phy.test(t)){ current='phy'; return; }
+      if(subjectKeywords.che.test(t)){ current='che'; return; }
+      if(subjectKeywords.third.test(t)){ current='third'; return; }
+    }
+    if(current) buckets[current].push(l);
+  });
+  const parseLetters=arr=>{
+    const text=arr.join(' ');
+    const matches=[...text.matchAll(/\b(\d{1,3})\s*[\.\)]?\s*\(?([A-Da-d])\)?/gi)];
+    return matches.map(m=>({num:parseInt(m[1],10),letter:m[2].toUpperCase()})).sort((a,b)=>a.num-b.num);
+  };
+  return { zoneText:zone, beforeZone, answers:{ phy:parseLetters(buckets.phy), che:parseLetters(buckets.che), third:parseLetters(buckets.third) } };
+}
+
+async function extractCombinedPdf(inputEl, targetIds, thirdLabelWords){
+  const file=inputEl.files[0];
+  if(!file)return;
+  if(file.type!=='application/pdf'){ toast('⚠ Please select a PDF file'); inputEl.value=''; return; }
+  if(!window.pdfjsLib){ toast('⚠ PDF reader failed to load. Reload the page and try again.'); return; }
+
+  toast('⏳ Reading combined PDF and detecting subject sections…');
+  try{
+    const buffer=await file.arrayBuffer();
+    const pdf=await pdfjsLib.getDocument({data:buffer}).promise;
+    let fullText='';
+    for(let p=1;p<=pdf.numPages;p++){
+      const page=await pdf.getPage(p);
+      const content=await page.getTextContent();
+      let lastY=null, line='';
+      content.items.forEach(item=>{
+        const y=Math.round(item.transform[5]);
+        if(lastY!==null && Math.abs(y-lastY)>2){ fullText+=line.trim()+'\n'; line=''; }
+        line+=item.str+' ';
+        lastY=y;
+      });
+      if(line.trim()) fullText+=line.trim()+'\n';
+      fullText+='\n';
+    }
+
+    // Isolate a separate Answer Key section FIRST (if present) so it doesn't get
+    // misrouted into whichever subject bucket happens to be active when it appears.
+    const akResult=extractAnswerKeyZone(fullText, thirdLabelWords);
+    const questionText=akResult.zoneText ? akResult.beforeZone : fullText;
+
+    // Section header detection: a short standalone line containing a subject keyword
+    // (e.g. "PHYSICS", "SECTION A - PHYSICS", "Chemistry Section") — not a normal
+    // question/option line, so we require it to be short and NOT start with Q#/A)/B) etc.
+    const lines=questionText.split('\n');
+    const isHeaderCandidate = l => {
+      const t=l.trim();
+      if(!t || t.length>60) return false;
+      if(/^Q?\s*\d+\s*[\.\)]/i.test(t)) return false;
+      if(/^[\(\[]?[A-Da-d]\s*[\)\.\:\-\]]/.test(t)) return false;
+      if(/^(Ans(?:wer)?|Correct|Sol(?:ution)?|Key|Explanation)/i.test(t)) return false;
+      return true;
+    };
+    const subjectKeywords={
+      phy:/physics/i,
+      che:/chemistry/i,
+      third:thirdLabelWords
+    };
+    let buckets={phy:[],che:[],third:[]};
+    let current=null;
+    lines.forEach(l=>{
+      const t=l.trim();
+      if(isHeaderCandidate(t)){
+        if(subjectKeywords.phy.test(t)){ current='phy'; return; }
+        if(subjectKeywords.che.test(t)){ current='che'; return; }
+        if(subjectKeywords.third.test(t)){ current='third'; return; }
+      }
+      if(current) buckets[current].push(l);
+    });
+
+    const foundSections=Object.values(buckets).filter(b=>b.some(l=>l.trim())).length;
+    if(foundSections<2){
+      toast('⚠ Could not clearly detect separate subject sections in this PDF (needs headers like "PHYSICS", "CHEMISTRY" etc). Use the individual "📄 Upload PDF" buttons per section instead.');
+      inputEl.value='';
+      return;
+    }
+
+    ['phy','che','third'].forEach((key,i)=>{
+      const ta=document.getElementById(targetIds[i]);
+      let text=buckets[key].join('\n').trim();
+      if(text && akResult.answers && akResult.answers[key] && akResult.answers[key].length){
+        text=injectAnswerKeys(text, akResult.answers[key]);
+      }
+      if(text){ ta.value = ta.value.trim() ? ta.value.trim()+'\n\n'+text : text; }
+    });
+    const hasAnswerKey = akResult.answers && (akResult.answers.phy.length||akResult.answers.che.length||akResult.answers.third.length);
+    toast(hasAnswerKey
+      ? `✅ Split into ${foundSections} section(s) — and found a separate Answer Key, so correct answers were filled in automatically! Review before importing.`
+      : `✅ Split into ${foundSections} section(s) and filled in below. No separate answer key detected — review each box and add answers if missing.`);
+  }catch(e){
+    console.error('Combined PDF extraction error:',e);
+    toast('⚠ Could not process this PDF.');
+  }finally{
+    inputEl.value='';
+  }
 }
 
 function previewSection(s){
@@ -1130,6 +1427,104 @@ function populateSelects(){
   updateBulkDynamic();
 }
 
+// ═══════════════════════ PDF IMAGE EXTRACTION ═══════════════════════
+let extractedPdfImages=[];
+async function extractImagesFromPdf(inputEl){
+  const file=inputEl.files[0];
+  if(!file)return;
+  if(file.type!=='application/pdf'){ toast('⚠ Please select a PDF file'); inputEl.value=''; return; }
+  if(!window.pdfjsLib){ toast('⚠ PDF reader failed to load. Check your internet connection and reload the page.'); return; }
+
+  const status=document.getElementById('pdf-img-status');
+  const gallery=document.getElementById('pdf-img-gallery');
+  gallery.innerHTML='';
+  extractedPdfImages=[];
+  status.textContent='⏳ Scanning PDF for images…';
+  toast('⏳ Extracting images — this can take a moment for large PDFs');
+
+  try{
+    const buffer=await file.arrayBuffer();
+    const pdf=await pdfjsLib.getDocument({data:buffer}).promise;
+    let found=0;
+
+    for(let p=1;p<=pdf.numPages;p++){
+      const page=await pdf.getPage(p);
+      const ops=await page.getOperatorList();
+      for(let i=0;i<ops.fnArray.length;i++){
+        const isImg=ops.fnArray[i]===pdfjsLib.OPS.paintImageXObject || ops.fnArray[i]===pdfjsLib.OPS.paintJpegXObject;
+        if(!isImg) continue;
+        const imgName=ops.argsArray[i][0];
+        try{
+          const imgObj=await new Promise((resolve)=>{ page.objs.get(imgName,resolve); });
+          if(!imgObj || !imgObj.width || !imgObj.height) continue;
+          if(imgObj.width<40 || imgObj.height<40) continue; // skip tiny icons/bullets, likely not real diagrams
+
+          const canvas=document.createElement('canvas');
+          canvas.width=imgObj.width; canvas.height=imgObj.height;
+          const ctx=canvas.getContext('2d');
+          const imgData=ctx.createImageData(imgObj.width,imgObj.height);
+          const src=imgObj.data;
+          if(src.length===imgObj.width*imgObj.height*4){
+            imgData.data.set(src);
+          } else if(src.length===imgObj.width*imgObj.height*3){
+            for(let px=0,j=0; px<src.length; px+=3,j+=4){
+              imgData.data[j]=src[px]; imgData.data[j+1]=src[px+1]; imgData.data[j+2]=src[px+2]; imgData.data[j+3]=255;
+            }
+          } else if(src.length===imgObj.width*imgObj.height){
+            // grayscale
+            for(let px=0,j=0; px<src.length; px++,j+=4){
+              imgData.data[j]=src[px]; imgData.data[j+1]=src[px]; imgData.data[j+2]=src[px]; imgData.data[j+3]=255;
+            }
+          } else {
+            continue; // unsupported color format (e.g. CMYK) — skip rather than render garbled
+          }
+          ctx.putImageData(imgData,0,0);
+          const dataUrl=canvas.toDataURL('image/png');
+          extractedPdfImages.push({page:p,dataUrl,width:imgObj.width,height:imgObj.height});
+          found++;
+        }catch(e){ /* skip images that fail to decode */ }
+      }
+    }
+
+    if(!found){
+      status.textContent='No extractable images found in this PDF. (Scanned/flattened PDFs sometimes embed the whole page as one image instead of separate diagrams.)';
+    } else {
+      status.textContent=`✅ Found ${found} image(s) across ${pdf.numPages} page(s). Click "Attach to Q#" on any image below.`;
+      renderPdfImageGallery();
+    }
+  }catch(e){
+    console.error('Image extraction error:',e);
+    status.textContent='⚠ Could not process this PDF.';
+  }finally{
+    inputEl.value='';
+  }
+}
+function renderPdfImageGallery(){
+  const gallery=document.getElementById('pdf-img-gallery');
+  gallery.innerHTML=extractedPdfImages.map((img,idx)=>`
+    <div style="border:1.5px solid var(--bdr);border-radius:10px;padding:8px;text-align:center;background:#fafafa">
+      <img src="${img.dataUrl}" style="width:100%;height:100px;object-fit:contain;border-radius:6px;background:#fff;margin-bottom:6px">
+      <div style="font-size:10.5px;color:var(--muted);margin-bottom:6px">Page ${img.page} · ${img.width}×${img.height}</div>
+      <div style="display:flex;gap:4px;align-items:center">
+        <input type="number" min="1" placeholder="Q#" id="pdf-img-qnum-${idx}" style="width:50px;padding:5px;border:1px solid var(--bdr);border-radius:5px;font-size:11px">
+        <button class="btn btn-sm btn-pri" style="flex:1;padding:5px 6px;font-size:10.5px" onclick="attachExtractedImage(${idx})">Attach</button>
+      </div>
+    </div>`).join('');
+}
+function attachExtractedImage(idx){
+  const qNumInput=document.getElementById(`pdf-img-qnum-${idx}`);
+  const qNum=parseInt(qNumInput.value,10);
+  if(!qNum||qNum<1){ toast('⚠ Enter a question number first'); return; }
+  const ti=parseInt(document.getElementById('qb-test').value);
+  const si=parseInt(document.getElementById('qb-sub').value);
+  const t=state.tests[ti];
+  if(!t||!t.qbank[si]||!t.qbank[si][qNum-1]){ toast(`⚠ Q${qNum} doesn't exist in this test/subject — check the dropdowns above match, and the test has that many questions.`); return; }
+  t.qbank[si][qNum-1].img=extractedPdfImages[idx].dataUrl;
+  saveAll();
+  loadQuestionsForImageManage();
+  toast(`✅ Image attached to Q${qNum}`);
+}
+
 function loadQuestionsForImageManage(){
   let ti=parseInt(document.getElementById('qb-test').value);
   let si=parseInt(document.getElementById('qb-sub').value);
@@ -1263,25 +1658,6 @@ function saveTopics(){
   state.tests[editTopicsIdx].topics.che=document.getElementById('et-che-topics').value.trim();
   state.tests[editTopicsIdx].topics.third=document.getElementById('et-third-topics').value.trim();
   saveAll(); closeModal('edit-topics-modal'); toast('✅ Topics saved & synced to students');
-}
-
-function renderStudents(){
-  try{ const u=localStorage.getItem('mhtcet_users'); if(u)studentData.users=JSON.parse(u); }catch(e){}
-  let users=studentData.users||[];
-  if(!users.length){ document.getElementById('students-content').innerHTML='<p style="padding:20px;color:var(--muted)">No students yet.</p>'; return; }
-  let rows=[];
-  users.forEach(u=>{
-    let best=u.scores?.length?u.scores.reduce((a,b)=>b.score>a.score?b:a,u.scores[0]):null;
-    rows.push({name:u.name,mobile:u.mobile,attempts:u.scores?.length||0,bestScore:best?.score||0,bestTest:best?.testName||'—'});
-  });
-  rows.sort((a,b)=>b.bestScore-a.bestScore);
-  let html=`<table class="data-table"><thead><tr><th>Rank</th><th>Name</th><th>Mobile</th><th>Best Score</th><th>Attempts</th><th>Best Test</th></tr></thead><tbody>`;
-  rows.forEach((r,idx)=>{
-    html+=`<tr><td>#${idx+1}</td><td>${escapeHtml(r.name)}</td><td>${r.mobile}</td><td class="badge-ok">${r.bestScore}</td><td>${r.attempts}</td><td>${escapeHtml(r.bestTest)}</td></tr>`;
-  });
-  html+=`</tbody></table>`;
-  document.getElementById('students-content').innerHTML=html;
-  updateSyncStatus();
 }
 
 function clearStudentData(){ confirmClearStudentData(); }
@@ -1419,6 +1795,57 @@ function previewContactSettings(){
   box.style.display='block';
 }
 
+// ═══════════════════════ NOTIFICATIONS ═══════════════════════
+function sendNotification(){
+  const title=(document.getElementById('notif-title').value||'').trim();
+  const message=(document.getElementById('notif-message').value||'').trim();
+  if(!message){ toast('⚠ Enter a message'); return; }
+  fetchWithRetry(BASE_URL + "/add-notification", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({title,message})
+  })
+  .then(res=>res.json())
+  .then(()=>{
+    toast('✅ Notification sent to all students!');
+    document.getElementById('notif-title').value='';
+    document.getElementById('notif-message').value='';
+    loadNotificationsAdmin();
+  })
+  .catch(()=>{ toast('⚠ Could not send — server may be waking up, retry in 30s'); });
+}
+function loadNotificationsAdmin(){
+  const list=document.getElementById('notif-admin-list');
+  list.textContent='Loading…';
+  fetchWithRetry(BASE_URL + "/notifications")
+    .then(res=>res.json())
+    .then(notifs=>{
+      if(!Array.isArray(notifs)||!notifs.length){
+        list.innerHTML='<div style="text-align:center;padding:16px 0">No notifications sent yet.</div>';
+        return;
+      }
+      list.innerHTML=notifs.map(n=>{
+        const d=new Date(n.createdAt);
+        const timeStr=d.toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+        return `<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--bdr)">
+          <div style="flex:1">
+            ${n.title?`<div style="font-weight:700;color:var(--txt);font-size:13.5px;margin-bottom:2px">${escHtml(n.title)}</div>`:''}
+            <div style="font-size:13px;color:var(--txt)">${escHtml(n.message)}</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px">${timeStr}</div>
+          </div>
+          <button class="btn btn-err btn-sm" onclick="deleteNotification('${n._id}')">🗑</button>
+        </div>`;
+      }).join('');
+    })
+    .catch(()=>{ list.innerHTML='<div style="text-align:center;padding:16px 0;color:var(--err)">Could not load — check connection.</div>'; });
+}
+function deleteNotification(id){
+  if(!confirm('Delete this notification?'))return;
+  fetchWithRetry(BASE_URL + "/notifications/" + id, { method:"DELETE" })
+    .then(()=>{ toast('🗑 Deleted'); loadNotificationsAdmin(); })
+    .catch(()=>{ toast('⚠ Could not delete'); });
+}
+
 function exportData(){ let blob=new Blob([JSON.stringify({state,studentData},null,2)],{type:'application/json'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`mhtcet_backup_${Date.now()}.json`; a.click(); }
 function importBackup(){ document.getElementById('import-file').click(); }
 function handleImportFile(inp){ if(!inp.files[0])return; let r=new FileReader(); r.onload=e=>{ try{ let d=JSON.parse(e.target.result); if(d.state)state=d.state; if(d.studentData)studentData=d.studentData; state.tests.forEach(t=>{if(!t.qbank)t.qbank={0:[],1:[],2:[]};if(!t.stream)t.stream='pcm';}); saveAll(); renderDashboard(); populateSelects(); renderTestsTable(); toast('Import success'); }catch(err){toast('Invalid file');} }; r.readAsText(inp.files[0]); }
@@ -1466,9 +1893,12 @@ function addNewTest(){
   let q2=document.getElementById('nt-qcount-2').value.trim();
   let q3=document.getElementById('nt-qcount-3').value.trim();
   let customMaxQ = (q1||q2||q3) ? [q1||null, q2||null, q3||null].map(v=>v?parseInt(v,10):null) : null;
+  let isPastPaper=document.getElementById('nt-is-pyp').checked;
+  let year=isPastPaper?parseInt(document.getElementById('nt-year').value,10)||null:null;
   let newId=state.tests.length?Math.max(...state.tests.map(t=>t.id||0))+1:0;
   let newTest={id:newId,name,stream,active:false,free,desc:desc||streamDesc,topics:{phy:phyTopics,che:cheTopics,third:thirdTopics},qbank:{0:[],1:[],2:[]}};
   if(customMaxQ) newTest.customMaxQ = customMaxQ;
+  if(isPastPaper){ newTest.isPastPaper=true; newTest.year=year; }
   state.tests.push(newTest);
   closeModal('new-test-modal');
   saveAll(); renderTestsTable(); populateSelects(); renderDashboard();
@@ -1484,6 +1914,9 @@ function openNewTestModal(){
   document.getElementById('nt-qcount-1').value='';
   document.getElementById('nt-qcount-2').value='';
   document.getElementById('nt-qcount-3').value='';
+  document.getElementById('nt-is-pyp').checked=false;
+  document.getElementById('nt-year').value='';
+  document.getElementById('nt-year-row').style.display='none';
   document.getElementById('nt-stream').value='pcm';
   document.getElementById('nt-type').value='1';
   updateNewTestModal();
@@ -1499,7 +1932,7 @@ function navTo(page,el){
   document.getElementById(`page-${page}`)?.classList.add('on');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('on'));
   if(el)el.classList.add('on');
-  let titles={dashboard:'Dashboard',bulk150:'PCM/PCB Bulk Import',bulkneet:'NEET Bulk Import',bulkjee:'JEE Bulk Import',tests:'Manage Tests',questions:'Question Bank + Images',anskey:'Answer Key',students:'Students & Ranking',settings:'Settings'};
+  let titles={dashboard:'Dashboard',bulk150:'PCM/PCB Bulk Import',bulkneet:'NEET Bulk Import',bulkjee:'JEE Bulk Import',tests:'Manage Tests',questions:'Question Bank + Images',anskey:'Answer Key',students:'Students & Ranking',settings:'Settings',notifications:'Notifications'};
   document.getElementById('page-title').textContent=titles[page]||page;
   if(page==='dashboard')renderDashboard();
   if(page==='tests')renderTestsTable();
@@ -1509,6 +1942,7 @@ function navTo(page,el){
   if(page==='bulkneet')populateSelects();
   if(page==='bulkjee')populateSelects();
   if(page==='settings'){populateSelects();loadRazorpaySettings();loadContactSettings();}
+  if(page==='notifications')loadNotificationsAdmin();
 }
 
 // ═══════════════════════ SECURITY ENGINE ═══════════════════════
@@ -1835,10 +2269,6 @@ function confirmClearStudentData() {
 }
 
 // Keep old clearStudentData for backward compat (local only)
-function clearStudentData() {
-  confirmClearStudentData();
-}
-
 // ✅ Export to Excel with proper rank numbers
 function exportToExcel() {
   if (!window.allData || !window.allData.length) {
