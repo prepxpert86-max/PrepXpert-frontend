@@ -5,24 +5,34 @@
 <meta name="theme-color" content="#0c465a">
 <link rel="icon" href="/icon-192.png">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>PrepXpert Test Series</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600;700&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 <style>
-:root{--pri:#1a237e;--pri2:#283593;--acc:#ff6f00;--acc2:#ffa000;--ok:#1b5e20;--err:#b71c1c;--phy:#1565c0;--che:#6a1b9a;--mat:#1b5e20;--bio:#006064;--neet:#880e4f;--jee:#e65100;--jee2:#bf360c;--bg:#eef0f5;--card:#fff;--txt:#111827;--muted:#6b7280;--bdr:#e2e6f0;--ans:#1b5e20;--skp:#e65100;--mkd:#6a1b9a;--nv:#90a4ae;}
+:root{--pri:#0d4f5c;--pri2:#146b7d;--acc:#ff6f00;--acc2:#ffa000;--ok:#1b5e20;--err:#b71c1c;--phy:#1565c0;--che:#6a1b9a;--mat:#1b5e20;--bio:#006064;--neet:#880e4f;--jee:#e65100;--jee2:#bf360c;--bg:#eef2f3;--card:#fff;--txt:#111827;--muted:#6b7280;--bdr:#e2e6f0;--ans:#1b5e20;--skp:#e65100;--mkd:#6a1b9a;--nv:#90a4ae;--mint:#34d399;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);}
-.hdr{background:linear-gradient(135deg,#0d1b6e,var(--pri),var(--pri2));color:#fff;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3);}
-.logo{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;letter-spacing:.5px;}
+body{font-family:'Nunito','Hind',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);}
+.hdr{background:linear-gradient(135deg,#0a2838,var(--pri),var(--pri2));color:#fff;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.logo{font-family:'Rajdhani','Hind',sans-serif;font-size:22px;font-weight:700;letter-spacing:.5px;}
 .logo span{color:var(--acc2);}
 .hdr-r{display:flex;align-items:center;gap:10px;}
-.timer{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:5px 14px;font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;letter-spacing:2px;min-width:108px;text-align:center;display:none;}
+.hdr-burger{display:none;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;width:38px;height:38px;border-radius:8px;font-size:18px;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.hdr-bell{position:relative;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;width:38px;height:38px;border-radius:8px;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;margin-left:8px;}
+.hdr-bell-badge{position:absolute;top:-5px;right:-5px;background:var(--err);color:#fff;font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px;box-shadow:0 0 0 2px var(--pri);}
+.notif-item{padding:12px 4px;border-bottom:1px solid var(--bdr);}
+.notif-item:last-child{border:none;}
+.notif-item h6{font-family:'Rajdhani','Hind',sans-serif;font-size:14px;font-weight:700;color:var(--pri);margin-bottom:3px;}
+.notif-item p{font-size:12.5px;color:var(--txt);line-height:1.5;}
+.notif-item .notif-time{font-size:10.5px;color:var(--muted);margin-top:5px;}
+.hdr-menu-overlay{display:none;}
+.timer{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:5px 14px;font-family:'Rajdhani','Hind',sans-serif;font-size:20px;font-weight:700;letter-spacing:2px;min-width:108px;text-align:center;display:none;}
 .timer.warn{background:rgba(255,111,0,.3);border-color:var(--acc2);animation:pulse 1s infinite;}
 .timer.crit{background:rgba(198,40,40,.4);border-color:#ef5350;animation:pulse .5s infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s;}
-.btn-pri{background:var(--pri);color:#fff;}.btn-pri:hover{background:var(--pri2);transform:translateY(-1px);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'Nunito','Hind',sans-serif;transition:all .15s;}
+.btn:active{transform:scale(.96);}
+.btn-pri{background:var(--pri);color:#fff;box-shadow:0 4px 14px rgba(13,79,92,.35);}.btn-pri:hover{background:var(--pri2);transform:translateY(-1px);}
 .btn-acc{background:var(--acc);color:#fff;}
 .btn-ok{background:var(--ok);color:#fff;}
 .btn-err{background:var(--err);color:#fff;}
@@ -35,18 +45,18 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 .scr.on{display:flex;flex-direction:column;min-height:calc(100vh - 58px);}
 #hs{padding:0 0 40px;}
 .hero{padding:40px 28px 36px;position:relative;overflow:hidden;color:#fff;}
-.hero.pcm{background:linear-gradient(140deg,#0d1b6e 0%,var(--pri) 50%,var(--pri2) 100%);}
+.hero.pcm{background:linear-gradient(140deg,#0a2838 0%,var(--pri) 50%,var(--pri2) 100%);}
 .hero.pcb{background:linear-gradient(140deg,#004d40 0%,#006064 50%,#00838f 100%);}
 .hero.neet-hero{background:linear-gradient(140deg,#4a148c 0%,#880e4f 50%,#ad1457 100%);}
-.hero::after{content:'';position:absolute;right:-20px;top:-15px;font-family:'Rajdhani',sans-serif;font-size:130px;font-weight:700;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;}
-.hero h1{font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;margin-bottom:8px;line-height:1.2;}
+.hero::after{content:'';position:absolute;right:-20px;top:-15px;font-family:'Rajdhani','Hind',sans-serif;font-size:130px;font-weight:700;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;}
+.hero h1{font-family:'Rajdhani','Hind',sans-serif;font-size:32px;font-weight:700;margin-bottom:8px;line-height:1.2;}
 .hero p{color:rgba(255,255,255,.75);font-size:14px;max-width:520px;line-height:1.6;}
 .hero-chips{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
 .hchip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:8px 14px;font-size:13px;}
-.hchip strong{display:block;font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;}
+.hchip strong{display:block;font-family:'Rajdhani','Hind',sans-serif;font-size:18px;font-weight:700;}
 .neet-chip{background:rgba(255,255,255,.15);border-color:rgba(255,192,203,.4);}
 .home-body{padding:24px 24px 0;max-width:1000px;margin:0 auto;width:100%;}
-.sec-ttl{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--pri);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.sec-ttl{font-family:'Rajdhani','Hind',sans-serif;font-size:18px;font-weight:700;color:var(--pri);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .sec-ttl::before{content:'';width:4px;height:20px;background:var(--acc);border-radius:2px;}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:28px;}
 .tcard{background:var(--card);border-radius:14px;border:1px solid var(--bdr);padding:20px;cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
@@ -57,23 +67,23 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 .tbadge.free{background:#e8f5e9;color:var(--ok);}
 .tbadge.paid{background:#fff3e0;color:var(--acc);}
 .tbadge.neet-badge{background:#fce4ec;color:var(--neet);}
-.tcard h3{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:var(--pri);margin-bottom:6px;padding-right:48px;}
+.tcard h3{font-family:'Rajdhani','Hind',sans-serif;font-size:17px;font-weight:700;color:var(--pri);margin-bottom:6px;padding-right:48px;}
 .tcard.neet-card h3{color:var(--neet);}
 .tcard p{font-size:12px;color:var(--muted);line-height:1.5;}
 .tmeta{display:flex;gap:12px;margin-top:10px;font-size:11px;color:var(--muted);}
 .sub-strip{display:flex;gap:10px;margin-bottom:24px;}
 .sub-chip{flex:1;background:var(--card);border-radius:10px;border:1px solid var(--bdr);padding:12px 14px;text-align:center;}
-.sub-chip .sv{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;}
+.sub-chip .sv{font-family:'Rajdhani','Hind',sans-serif;font-size:22px;font-weight:700;}
 .sub-chip .sl{font-size:11px;color:var(--muted);}
 #inst-scr{padding:22px;max-width:800px;margin:0 auto;width:100%;}
 .icard{background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:22px 26px;margin-bottom:16px;}
-.icard h2{font-family:'Rajdhani',sans-serif;font-size:19px;font-weight:700;color:var(--pri);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--bdr);}
+.icard h2{font-family:'Rajdhani','Hind',sans-serif;font-size:19px;font-weight:700;color:var(--pri);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--bdr);}
 .mtable{width:100%;border-collapse:collapse;font-size:13px;}
 .mtable th,.mtable td{padding:9px 13px;border:1px solid var(--bdr);text-align:left;}
 .mtable th{background:#e8eaf6;color:var(--pri);font-weight:700;}
 .mtable tr:nth-child(even) td{background:#f8f9ff;}
 .neet-warning{background:#fce4ec;border:1.5px solid #f48fb1;border-radius:10px;padding:12px 16px;margin-bottom:12px;font-size:13px;color:var(--neet);line-height:1.7;}
-.neet-warning strong{font-family:'Rajdhani',sans-serif;font-size:15px;}
+.neet-warning strong{font-family:'Rajdhani','Hind',sans-serif;font-size:15px;}
 .ilist{list-style:none;}
 .ilist li{padding:7px 0 7px 18px;border-bottom:1px solid var(--bdr);font-size:13px;position:relative;}
 .ilist li::before{content:'▸';position:absolute;left:0;color:var(--acc);font-size:11px;}
@@ -92,7 +102,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 .stab.on[data-s="2"].bio-tab,.stab.on[data-s="2"].neet-bio-tab{border-bottom-color:var(--neet);color:var(--neet);}
 .qcontent{flex:1;overflow-y:auto;padding:18px 22px;min-height:0;}
 .qhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.qnum-badge{color:#fff;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;padding:4px 14px;border-radius:6px;}
+.qnum-badge{color:#fff;font-family:'Rajdhani','Hind',sans-serif;font-size:14px;font-weight:700;padding:4px 14px;border-radius:6px;}
 .qmrk-badge{font-size:12px;color:var(--muted);background:#f0f2f5;padding:4px 11px;border-radius:6px;border:1px solid var(--bdr);}
 .qmrk-badge.neet-marks{background:#fce4ec;color:var(--neet);border-color:#f48fb1;font-weight:700;}
 .qtxt{font-size:15px;line-height:1.75;color:var(--txt);margin-bottom:20px;padding:16px 20px;background:var(--card);border-radius:10px;border:1px solid var(--bdr);border-left:4px solid var(--pri);}
@@ -107,7 +117,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 .neet-neg-warning{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:8px 14px;font-size:12px;color:#5d4037;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .qact{display:flex;gap:8px;padding:12px 20px;background:var(--card);border-top:1px solid var(--bdr);flex-shrink:0;flex-wrap:wrap;align-items:center;}
 .sb{width:270px;background:var(--card);border-left:1px solid var(--bdr);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;}
-.sbhdr{padding:12px 14px;border-bottom:1px solid var(--bdr);font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--pri);}
+.sbhdr{padding:12px 14px;border-bottom:1px solid var(--bdr);font-family:'Rajdhani','Hind',sans-serif;font-size:14px;font-weight:700;color:var(--pri);}
 .sbstats{padding:8px 11px;display:flex;gap:5px;border-bottom:1px solid var(--bdr);flex-wrap:wrap;}
 .sc{font-size:10px;padding:3px 7px;border-radius:4px;font-weight:700;}
 .sc.a{background:#e8f5e9;color:var(--ans);}
@@ -130,26 +140,26 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 .qbtn.mkd{background:var(--mkd);}
 .qbtn.cur{background:var(--pri);box-shadow:0 0 0 2px var(--acc);}
 .sb-goto{display:flex;gap:6px;padding:10px 11px;border-top:1px solid var(--bdr);}
-.sb-goto input{flex:1;padding:6px 9px;border:1.5px solid var(--bdr);border-radius:6px;font-size:12px;font-family:'Nunito',sans-serif;outline:none;}
+.sb-goto input{flex:1;padding:6px 9px;border:1.5px solid var(--bdr);border-radius:6px;font-size:12px;font-family:'Nunito','Hind',sans-serif;outline:none;}
 .sb-goto input:focus{border-color:var(--pri);}
 .sb-sub{padding:12px;border-top:1px solid var(--bdr);}
 .ua-count{font-size:12px;color:var(--err);margin-bottom:9px;font-weight:700;}
 #result-scr{padding:22px;max-width:900px;margin:0 auto;width:100%;}
 .rhero{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;border-radius:16px;padding:28px;margin-bottom:22px;text-align:center;}
 .rhero.neet-result{background:linear-gradient(135deg,#4a148c,#880e4f);}
-.rhero h2{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;margin-bottom:4px;}
+.rhero h2{font-family:'Rajdhani','Hind',sans-serif;font-size:26px;font-weight:700;margin-bottom:4px;}
 .rhero .tname{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:20px;}
 .score-ring{width:130px;height:130px;border-radius:50%;border:5px solid rgba(255,255,255,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px;background:rgba(255,255,255,.1);}
-.score-ring .sv{font-family:'Rajdhani',sans-serif;font-size:34px;font-weight:700;line-height:1;}
+.score-ring .sv{font-family:'Rajdhani','Hind',sans-serif;font-size:34px;font-weight:700;line-height:1;}
 .score-ring .so{font-size:13px;color:rgba(255,255,255,.7);}
 .rstats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px;}
 .rstat{background:rgba(255,255,255,.12);border-radius:10px;padding:12px;}
-.rstat .rv{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;}
+.rstat .rv{font-family:'Rajdhani','Hind',sans-serif;font-size:22px;font-weight:700;}
 .rstat .rl{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px;}
 .rstat.neg-stat{background:rgba(183,28,28,.3);border:1px solid rgba(255,100,100,.3);}
 .secres{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
 .src{background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:18px;}
-.src h4{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;margin-bottom:10px;}
+.src h4{font-family:'Rajdhani','Hind',sans-serif;font-size:14px;font-weight:700;margin-bottom:10px;}
 .src.p h4{color:var(--phy);}
 .src.c h4{color:var(--che);}
 .src.m h4{color:var(--mat);}
@@ -158,7 +168,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 .pbar{background:var(--bdr);border-radius:4px;height:7px;margin:5px 0;overflow:hidden;}
 .pfill{height:100%;border-radius:4px;transition:width 1.2s ease;}
 .arev{background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:22px;}
-.arev h3{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:var(--pri);margin-bottom:14px;}
+.arev h3{font-family:'Rajdhani','Hind',sans-serif;font-size:17px;font-weight:700;color:var(--pri);margin-bottom:14px;}
 .ritem{padding:13px;border-bottom:1px solid var(--bdr);display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;font-size:13px;}
 .ritem:last-child{border:none;}
 .ritem.ok .ric{color:var(--ok);}
@@ -171,14 +181,14 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 .modal-ov.on{display:flex;}
 .modal{background:#fff;border-radius:16px;padding:28px;width:90%;max-width:400px;box-shadow:0 24px 64px rgba(0,0,0,.3);animation:mIn .2s ease;}
 @keyframes mIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
-.modal h2{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--pri);margin-bottom:8px;}
+.modal h2{font-family:'Rajdhani','Hind',sans-serif;font-size:20px;font-weight:700;color:var(--pri);margin-bottom:8px;}
 .modal p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:18px;}
 .mact{display:flex;gap:10px;}
 .mact .btn{flex:1;}
 .conf-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center;}
 .conf-ov.on{display:flex;}
 .conf-box{background:#fff;border-radius:14px;padding:26px;width:90%;max-width:370px;box-shadow:0 24px 48px rgba(0,0,0,.25);animation:mIn .2s ease;}
-.conf-box h3{font-family:'Rajdhani',sans-serif;font-size:19px;font-weight:700;color:var(--err);margin-bottom:8px;}
+.conf-box h3{font-family:'Rajdhani','Hind',sans-serif;font-size:19px;font-weight:700;color:var(--err);margin-bottom:8px;}
 .conf-box p{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6;}
 .ca{display:flex;gap:8px;}
 .ca .btn{flex:1;}
@@ -187,10 +197,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px;}
 #rank-scr{padding:0 0 40px;}
 .rank-hero{background:linear-gradient(135deg,#1b5e20,#2e7d32,#388e3c);color:#fff;padding:32px 24px;text-align:center;}
-.rank-hero h1{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;margin-bottom:6px;}
+.rank-hero h1{font-family:'Rajdhani','Hind',sans-serif;font-size:28px;font-weight:700;margin-bottom:6px;}
 .rank-body{padding:20px 24px;max-width:800px;margin:0 auto;width:100%;}
 .rank-filter{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
-.rank-filter select{padding:8px 12px;border:1.5px solid var(--bdr);border-radius:8px;font-size:13px;font-family:'Nunito',sans-serif;background:#fff;}
+.rank-filter select{padding:8px 12px;border:1.5px solid var(--bdr);border-radius:8px;font-size:13px;font-family:'Nunito','Hind',sans-serif;background:#fff;}
 .rank-table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);}
 .rank-table th{padding:12px 14px;background:#e8eaf6;color:var(--pri);font-weight:700;text-align:left;}
 .rank-table td{padding:11px 14px;border-bottom:1px solid var(--bdr);}
@@ -203,13 +213,13 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 .rank-n{background:#e8eaf6;color:var(--pri);}
 .my-rank-row td{background:#e8f5e9!important;font-weight:700;}
 .rank-card{background:#fff;border-radius:12px;border:2px solid var(--ok);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;}
-.rank-card .big-rank{font-family:'Rajdhani',sans-serif;font-size:48px;font-weight:700;color:var(--ok);line-height:1;}
+.rank-card .big-rank{font-family:'Rajdhani','Hind',sans-serif;font-size:48px;font-weight:700;color:var(--ok);line-height:1;}
 .rank-card .rank-details{flex:1;}
 .rank-card .rank-name{font-size:16px;font-weight:700;}
 .rank-card .rank-meta{font-size:12px;color:var(--muted);margin-top:3px;}
 .empty-rank{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;}
 .stream-tabs{display:flex;gap:0;border-radius:12px;overflow:hidden;border:2px solid var(--bdr);background:var(--card);margin-bottom:18px;}
-.stream-tab-btn{flex:1;padding:12px 8px;border:none;background:var(--card);color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:2px;border-left:2px solid var(--bdr);}
+.stream-tab-btn{flex:1;padding:12px 8px;border:none;background:var(--card);color:var(--muted);font-family:'Rajdhani','Hind',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:2px;border-left:2px solid var(--bdr);}
 .stream-tab-btn:first-child{border-left:none;}
 .stream-tab-btn.active-pcm{background:var(--pri);color:#fff;}
 .stream-tab-btn.active-pcb{background:var(--bio);color:#fff;}
@@ -237,9 +247,14 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
   .sb-goto{padding:8px 10px;}
   .hdr{padding:0 10px;height:52px;gap:6px;}
   .logo{font-size:17px;}
-  .hdr-r{gap:6px;}
-  .btn-ghost.btn-sm{padding:5px 7px;font-size:10px;}
-  #hdr-user{max-width:60px;font-size:10px;}
+  .hdr-burger{display:flex;}
+  .hdr-r{position:fixed;top:52px;left:0;right:0;background:linear-gradient(135deg,#0d1b6e,var(--pri),var(--pri2));flex-direction:column;align-items:stretch;gap:0;padding:8px 12px 14px;box-shadow:0 8px 20px rgba(0,0,0,.35);transform:translateY(-12px);opacity:0;pointer-events:none;transition:transform .18s ease,opacity .18s ease;max-height:calc(100vh - 52px);overflow-y:auto;}
+  .hdr-r.on{transform:translateY(0);opacity:1;pointer-events:auto;}
+  .hdr-r .timer{align-self:center;margin:4px 0 8px;}
+  .hdr-r .btn-ghost.btn-sm,.hdr-r #sub-btn{width:100%;justify-content:flex-start;padding:11px 12px!important;font-size:14px!important;margin-bottom:6px;border-radius:8px;}
+  .hdr-r #hdr-user{max-width:none!important;font-size:12px!important;text-align:center;padding:6px 0;order:-1;color:rgba(255,255,255,.85)!important;}
+  .hdr-menu-overlay{display:none;position:fixed;inset:52px 0 0 0;background:rgba(0,0,0,.4);z-index:99;}
+  .hdr-menu-overlay.on{display:block;}
   .timer{font-size:15px;min-width:82px;padding:3px 8px;letter-spacing:1px;}
   .hero{padding:24px 16px 20px;}
   .hero h1{font-size:22px;}
@@ -276,18 +291,85 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 .exam-active *{-webkit-user-select:none!important;-moz-user-select:none!important;user-select:none!important;}
 #screenshot-warn{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:99999;align-items:center;justify-content:center;flex-direction:column;color:#fff;text-align:center;padding:30px;}
 #screenshot-warn.show{display:flex;}
-#screenshot-warn h2{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:#ff5252;margin-bottom:12px;}
+#screenshot-warn h2{font-family:'Rajdhani','Hind',sans-serif;font-size:28px;font-weight:700;color:#ff5252;margin-bottom:12px;}
 #screenshot-warn p{font-size:15px;color:rgba(255,255,255,.75);max-width:400px;line-height:1.7;}
-#screenshot-warn button{margin-top:22px;background:#1a237e;color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+#screenshot-warn button{margin-top:22px;background:#1a237e;color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito','Hind',sans-serif;}
 @media print{body *{display:none!important;}.print-block{display:block!important;color:#000;font-size:20px;padding:40px;font-family:sans-serif;}}
-#login-scr{min-height:100vh;background:linear-gradient(140deg,#0d1b6e 0%,#1a237e 60%,#283593 100%);display:flex;align-items:center;justify-content:center;padding:20px;}
+/* ═══ SMART ANALYSIS ═══ */
+.sa-wrap{background:var(--card);border-radius:12px;border:1px solid var(--bdr);padding:22px;margin-bottom:20px;}
+.sa-wrap h3{font-family:'Rajdhani','Hind',sans-serif;font-size:17px;font-weight:700;color:var(--pri);margin-bottom:4px;}
+.sa-sub{font-size:12px;color:var(--muted);margin-bottom:16px;}
+.sa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.sa-block{background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:14px 16px;}
+.sa-block.full{grid-column:1/-1;}
+.sa-block h5{font-family:'Rajdhani','Hind',sans-serif;font-size:13px;font-weight:700;color:var(--pri2);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.sa-trend{display:flex;align-items:flex-end;gap:6px;height:70px;margin-bottom:6px;}
+.sa-trend-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+.sa-trend-fill{width:100%;max-width:28px;border-radius:4px 4px 0 0;background:var(--pri2);transition:height .8s ease;min-height:2px;}
+.sa-trend-bar.cur .sa-trend-fill{background:var(--acc);}
+.sa-trend-lbl{font-size:9px;color:var(--muted);margin-top:4px;text-align:center;}
+.sa-trend-val{font-size:9px;font-weight:700;color:var(--txt);margin-bottom:2px;}
+.sa-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;padding:7px 0;border-bottom:1px dashed var(--bdr);}
+.sa-row:last-child{border:none;}
+.sa-row .sa-name{font-weight:600;}
+.sa-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.sa-badge.good{background:#e8f5e9;color:var(--ok);}
+.sa-badge.bad{background:#ffebee;color:var(--err);}
+.sa-badge.mid{background:#fff3e0;color:#e65100;}
+.sa-badge.info{background:#e3f2fd;color:var(--phy);}
+.sa-delta{font-weight:700;font-size:12px;}
+.sa-delta.up{color:var(--ok);}
+.sa-delta.down{color:var(--err);}
+.sa-delta.flat{color:var(--muted);}
+.sa-bigstat{text-align:center;padding:6px 0;}
+.sa-bigstat .sv{font-family:'Rajdhani','Hind',sans-serif;font-size:26px;font-weight:700;color:var(--pri);}
+.sa-bigstat .sl{font-size:11px;color:var(--muted);margin-top:2px;}
+.sa-recobox{background:linear-gradient(135deg,#fff8e1,#fff3e0);border:1px solid #ffe082;border-radius:10px;padding:14px 16px;font-size:13px;color:#5d4037;line-height:1.7;}
+.sa-recobox ul{margin:6px 0 0 18px;padding:0;}
+.sa-recobox li{margin-bottom:4px;}
+.sa-nextbtn{margin-top:10px;}
+.sa-empty{font-size:12.5px;color:var(--muted);text-align:center;padding:10px 0;}
+.sa-mini-pbar{background:var(--bdr);border-radius:4px;height:6px;margin-top:5px;overflow:hidden;}
+.sa-mini-pfill{height:100%;border-radius:4px;}
+@media (max-width:768px){
+  .sa-wrap{padding:14px;}
+  .sa-grid{grid-template-columns:1fr;}
+}
+.bm-btn{background:none;border:1.5px solid var(--bdr);border-radius:8px;width:36px;height:36px;font-size:16px;cursor:pointer;margin-left:auto;transition:all .15s;filter:grayscale(1);opacity:.5;}
+.bm-btn.on{filter:none;opacity:1;border-color:#ffcc80;background:#fff8e1;}
+.bm-btn:active{transform:scale(.9);}
+.practice-toggle-box{background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:10px;padding:14px 16px;margin:0 0 16px;}
+.practice-toggle-box .check-row{align-items:flex-start;gap:10px;}
+.practice-toggle-box input[type=checkbox]{margin-top:3px;flex-shrink:0;}
+.practice-feedback{margin-top:14px;padding:14px 16px;border-radius:10px;font-size:13.5px;line-height:1.6;animation:mIn .25s ease;}
+.practice-feedback.correct{background:#e8f5e9;border:1.5px solid #66bb6a;color:#1b5e20;}
+.practice-feedback.wrong{background:#ffebee;border:1.5px solid #ef5350;color:#b71c1c;}
+.pf-title{font-weight:800;font-size:14px;margin-bottom:4px;}
+.practice-badge{display:inline-block;background:#a5d6a7;color:#1b5e20;font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;margin-left:8px;vertical-align:middle;}
+/* ═══ STREAKS & BADGES ═══ */
+.streak-strip{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:linear-gradient(135deg,#fff3e0,#ffe0b2);border:1px solid #ffcc80;border-radius:12px;padding:14px 18px;margin:16px 20px 0;}
+.streak-box{display:flex;align-items:center;gap:10px;}
+.streak-fire{font-size:30px;line-height:1;filter:drop-shadow(0 2px 4px rgba(230,81,0,.3));}
+.streak-num{font-family:'Rajdhani','Hind',sans-serif;font-size:24px;font-weight:800;color:#e65100;line-height:1;}
+.streak-lbl{font-size:11px;color:#8a5a00;font-weight:700;}
+.badges-row{display:flex;gap:8px;flex-wrap:wrap;}
+.badge-chip{display:flex;align-items:center;gap:5px;background:#fff;border:1px solid #ffcc80;border-radius:20px;padding:5px 12px 5px 8px;font-size:11.5px;font-weight:700;color:#e65100;}
+.badge-chip .bi{font-size:15px;}
+@media (max-width:768px){
+  .streak-strip{margin:12px 12px 0;padding:12px 14px;}
+  .streak-fire{font-size:24px;}
+  .streak-num{font-size:20px;}
+  .badges-row{width:100%;}
+}
+#login-scr{min-height:100vh;background:linear-gradient(140deg,#0a2838 0%,#0d4f5c 55%,#146b7d 100%);display:flex;align-items:center;justify-content:center;padding:20px;}
 .login-card{background:#fff;border-radius:20px;padding:36px 32px;width:100%;max-width:420px;box-shadow:0 32px 80px rgba(0,0,0,.35);animation:mIn .3s ease;}
-.login-logo{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:var(--pri);text-align:center;margin-bottom:4px;}
+.login-badge{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#0a2838,var(--pri),var(--pri2));display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 14px;box-shadow:0 8px 20px rgba(13,79,92,.35);}
+.login-logo{font-family:'Rajdhani','Hind',sans-serif;font-size:28px;font-weight:700;color:var(--pri);text-align:center;margin-bottom:4px;}
 .login-logo span{color:var(--acc);}
 .login-sub{text-align:center;font-size:13px;color:var(--muted);margin-bottom:24px;}
 .lfield{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
 .lfield label{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.3px;}
-.lfield input{padding:11px 14px;border:1.5px solid var(--bdr);border-radius:10px;font-size:14px;font-family:'Nunito',sans-serif;outline:none;transition:border .15s;}
+.lfield input{padding:11px 14px;border:1.5px solid var(--bdr);border-radius:10px;font-size:14px;font-family:'Nunito','Hind',sans-serif;outline:none;transition:border .15s;}
 .lfield input:focus{border-color:var(--pri);}
 .lerr{font-size:12px;color:var(--err);background:#ffebee;padding:8px 12px;border-radius:8px;margin-bottom:12px;display:none;}
 .terms-box{background:#f8f9ff;border:1.5px solid #c5cae9;border-radius:10px;padding:14px;height:140px;overflow-y:auto;font-size:12px;line-height:1.8;color:#444;margin-bottom:12px;}
@@ -299,15 +381,15 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 /* ── CONTACT US ── */
 .contact-scr{padding:0 0 40px;}
 .contact-hero{background:linear-gradient(135deg,#0d47a1,#1565c0,#1976d2);color:#fff;padding:36px 28px;text-align:center;}
-.contact-hero h1{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;margin-bottom:8px;}
+.contact-hero h1{font-family:'Rajdhani','Hind',sans-serif;font-size:28px;font-weight:700;margin-bottom:8px;}
 .contact-hero p{color:rgba(255,255,255,.75);font-size:14px;}
 .contact-body{padding:24px;max-width:600px;margin:0 auto;width:100%;}
 .contact-card{background:var(--card);border-radius:16px;border:1px solid var(--bdr);padding:28px;margin-bottom:18px;text-align:center;}
-.contact-card-title{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--pri);margin-bottom:20px;}
+.contact-card-title{font-family:'Rajdhani','Hind',sans-serif;font-size:18px;font-weight:700;color:var(--pri);margin-bottom:20px;}
 .contact-btns{display:flex;flex-direction:column;gap:12px;}
-.contact-btn-wa{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:#25D366;color:#fff;border-radius:12px;font-size:16px;font-weight:700;text-decoration:none;transition:all .2s;font-family:'Nunito',sans-serif;}
+.contact-btn-wa{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:#25D366;color:#fff;border-radius:12px;font-size:16px;font-weight:700;text-decoration:none;transition:all .2s;font-family:'Nunito','Hind',sans-serif;}
 .contact-btn-wa:hover{background:#1ebe5d;transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,211,102,.35);}
-.contact-btn-tg{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:#229ED9;color:#fff;border-radius:12px;font-size:16px;font-weight:700;text-decoration:none;transition:all .2s;font-family:'Nunito',sans-serif;}
+.contact-btn-tg{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 24px;background:#229ED9;color:#fff;border-radius:12px;font-size:16px;font-weight:700;text-decoration:none;transition:all .2s;font-family:'Nunito','Hind',sans-serif;}
 .contact-btn-tg:hover{background:#1a8bc5;transform:translateY(-2px);box-shadow:0 8px 20px rgba(34,158,217,.35);}
 .contact-info-box{background:#f0f4ff;border-radius:12px;border:1px solid #c5cae9;padding:16px 20px;font-size:13px;color:var(--muted);line-height:1.8;}
 .contact-info-box strong{color:var(--pri);}
@@ -316,12 +398,12 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 /* ── STUDENT DASHBOARD ── */
 #student-scr{padding:0 0 40px;}
 .sd-hero{background:linear-gradient(140deg,#0d1b6e,#1a237e,#283593);color:#fff;padding:32px 24px 28px;text-align:center;}
-.sd-hero h1{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;margin-bottom:6px;}
+.sd-hero h1{font-family:'Rajdhani','Hind',sans-serif;font-size:26px;font-weight:700;margin-bottom:6px;}
 .sd-hero p{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:20px;}
 .sd-search{display:flex;gap:8px;max-width:440px;margin:0 auto;background:rgba(255,255,255,.12);border-radius:12px;padding:5px;border:1px solid rgba(255,255,255,.2);}
-.sd-search input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:'Nunito',sans-serif;font-size:14px;padding:6px 10px;}
+.sd-search input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:'Nunito','Hind',sans-serif;font-size:14px;padding:6px 10px;}
 .sd-search input::placeholder{color:rgba(255,255,255,.55);}
-.sd-search button{background:var(--acc2);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-weight:700;font-family:'Nunito',sans-serif;font-size:13px;cursor:pointer;}
+.sd-search button{background:var(--acc2);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-weight:700;font-family:'Nunito','Hind',sans-serif;font-size:13px;cursor:pointer;}
 .sd-body{padding:20px 24px;max-width:860px;margin:0 auto;width:100%;}
 .sd-result-card{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;border-radius:14px;padding:24px;margin-bottom:20px;display:none;animation:mIn .3s ease;}
 .sd-result-card.show{display:block;}
@@ -329,19 +411,19 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 .sd-result-card.neet-card{background:linear-gradient(135deg,#4a148c,#880e4f);}
 .sd-result-card.jee-card{background:linear-gradient(135deg,#bf360c,#e65100);}
 .sd-rc-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:18px;}
-.sd-rc-name{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;}
+.sd-rc-name{font-family:'Rajdhani','Hind',sans-serif;font-size:22px;font-weight:700;}
 .sd-rc-type{font-size:11px;background:rgba(255,255,255,.2);border-radius:5px;padding:3px 10px;margin-top:4px;display:inline-block;}
 .sd-rank-box{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:12px 20px;text-align:center;min-width:90px;}
-.sd-rank-box .sdrn{font-family:'Rajdhani',sans-serif;font-size:34px;font-weight:700;line-height:1;}
+.sd-rank-box .sdrn{font-family:'Rajdhani','Hind',sans-serif;font-size:34px;font-weight:700;line-height:1;}
 .sd-rank-box .sdrl{font-size:10px;opacity:.8;margin-top:2px;}
 .sd-stats{display:flex;gap:10px;flex-wrap:wrap;}
 .sd-stat{background:rgba(255,255,255,.12);border-radius:9px;padding:11px 16px;text-align:center;flex:1;min-width:88px;}
-.sd-stat .ssv{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;}
+.sd-stat .ssv{font-family:'Rajdhani','Hind',sans-serif;font-size:20px;font-weight:700;}
 .sd-stat .ssl{font-size:10px;opacity:.75;margin-top:2px;}
 .sd-not-found{background:#fff3e0;border:1.5px solid #ffe082;border-radius:10px;padding:16px 20px;text-align:center;color:#5d4037;font-size:13px;margin-bottom:18px;display:none;}
 .sd-not-found.show{display:block;}
 .sd-lboard-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
-.sd-tab{padding:8px 16px;border:1.5px solid var(--bdr);border-radius:8px;background:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s;}
+.sd-tab{padding:8px 16px;border:1.5px solid var(--bdr);border-radius:8px;background:#fff;font-family:'Nunito','Hind',sans-serif;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s;}
 .sd-tab:hover{border-color:var(--pri);color:var(--pri);}
 .sd-tab.active{background:var(--pri);color:#fff;border-color:var(--pri);}
 .sd-tab.t-pcb.active{background:#006064;border-color:#006064;}
@@ -379,26 +461,39 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 <!-- LOGIN -->
 <div id="login-scr" style="display:none">
   <div class="login-card">
+    <div class="login-badge">🎓</div>
     <div class="login-logo">PrepXpert</div>
     <div class="login-sub">Test Series — Student Portal</div>
     <div class="login-tabs">
-      <div class="ltab on" id="tab-login" onclick="switchLoginTab('login')">Sign In</div>
-      <div class="ltab" id="tab-register" onclick="switchLoginTab('register')">Register</div>
+      <div class="ltab on" id="tab-login" onclick="switchLoginTab('login')" data-i18n="signIn">Sign In</div>
+      <div class="ltab" id="tab-register" onclick="switchLoginTab('register')" data-i18n="register">Register</div>
     </div>
     <div id="lerr" class="lerr"></div>
     <div id="login-form">
-      <div class="lfield"><label>Mobile / Username</label><input id="l-user" type="text" placeholder="Enter mobile or username" autocomplete="username"></div>
-      <div class="lfield"><label>Password</label><input id="l-pass" type="password" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
-      <button class="btn btn-pri" style="width:100%;padding:13px;font-size:15px;border-radius:10px;margin-top:4px" onclick="doLogin()">Sign In →</button>
+      <div class="lfield"><label data-i18n="mobileUsername">Mobile / Username</label><input id="l-user" type="text" placeholder="Enter mobile or username" autocomplete="username" data-i18n-ph="enterMobile"></div>
+      <div class="lfield"><label data-i18n="password">Password</label><input id="l-pass" type="password" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()" data-i18n-ph="enterPassword"></div>
+      <button class="btn btn-pri" style="width:100%;padding:13px;font-size:15px;border-radius:10px;margin-top:4px" onclick="doLogin()"><span data-i18n="signInArrow">Sign In →</span></button>
+      <div style="text-align:center;margin-top:12px"><a href="javascript:void(0)" onclick="openForgotPasswordModal()" style="color:var(--pri);font-size:12.5px;font-weight:700;text-decoration:underline">Forgot Password?</a></div>
     </div>
     <div id="register-form" style="display:none">
-      <div class="lfield"><label>Full Name</label><input id="r-name" type="text" placeholder="Enter your full name" autocomplete="name"></div>
+      <div class="lfield"><label data-i18n="fullName">Full Name</label><input id="r-name" type="text" placeholder="Enter your full name" autocomplete="name" data-i18n-ph="enterFullName"></div>
       <div class="lfield"><label>Mobile Number</label><input id="r-mobile" type="tel" placeholder="10-digit mobile" maxlength="10" autocomplete="tel"></div>
       <div class="lfield"><label>Create Password</label><input id="r-pass" type="password" placeholder="Min 8 chars, 1 uppercase, 1 number" autocomplete="new-password"></div>
       <div class="lfield"><label>Confirm Password</label><input id="r-pass2" type="password" placeholder="Re-enter password" autocomplete="new-password"></div>
+      <div class="lfield">
+        <label>Security Question <span style="font-weight:400;color:var(--muted);font-size:11px">(used to reset your password later)</span></label>
+        <select id="r-secq" style="width:100%;padding:12px 14px;border:1.5px solid var(--bdr);border-radius:10px;font-family:'Nunito','Hind',sans-serif;font-size:14px;background:#fff">
+          <option value="">Choose a question…</option>
+          <option value="pet">What was the name of your first pet?</option>
+          <option value="school">What is the name of your school?</option>
+          <option value="city">In which city were you born?</option>
+          <option value="mother">What is your mother's first name?</option>
+        </select>
+      </div>
+      <div class="lfield"><label>Security Answer</label><input id="r-seca" type="text" placeholder="Your answer (remember this!)" autocomplete="off"></div>
       <div class="terms-box"><h4 style="color:var(--pri);margin-bottom:8px">Terms of Use</h4>By registering you agree to use this platform fairly. Do not copy or share exam questions. Your scores may appear in the leaderboard. Paid access is non-refundable once unlocked.</div>
-      <label class="check-row"><input type="checkbox" id="r-terms"><span>I agree to the Terms of Use & Privacy Policy</span></label>
-      <button class="btn btn-pri" style="width:100%;padding:13px;font-size:15px;border-radius:10px" onclick="doRegister()">Create Account →</button>
+      <label class="check-row"><input type="checkbox" id="r-terms"><span>I agree to the <a href="javascript:void(0)" onclick="event.preventDefault();openTermsModal();" style="color:var(--pri);font-weight:700;text-decoration:underline">Terms of Use & Privacy Policy</a></span></label>
+      <button class="btn btn-pri" style="width:100%;padding:13px;font-size:15px;border-radius:10px" onclick="doRegister()"><span data-i18n="createAccountArrow">Create Account →</span></button>
     </div>
   </div>
 </div>
@@ -406,20 +501,35 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
 <!-- HEADER -->
 <div class="hdr" id="main-hdr" style="display:none">
   <div class="logo">PrepXpert</div>
-  <div class="hdr-r">
-    <div class="timer" id="timer">03:00:00</div>
-    <button class="btn btn-acc btn-sm" id="sub-btn" style="display:none" onclick="confirmSubmit()">Submit Test</button>
-    <button class="btn btn-ghost btn-sm" id="rank-btn" onclick="showRanking()">🏆 Rankings</button>
-    <button class="btn btn-ghost btn-sm" id="student-dash-btn" onclick="showStudentDash()">🎓 My Rank</button>
-    <button class="btn btn-ghost btn-sm" id="contact-btn" onclick="showContactUs()">📞 Contact</button>
+  <div class="hdr-menu-overlay" id="hdr-menu-overlay" onclick="closeHdrMenu()"></div>
+  <div class="hdr-r" id="hdr-r">
     <span id="hdr-user" style="font-size:12px;color:rgba(255,255,255,.7);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-    <button class="btn btn-ghost btn-sm" onclick="goHome()" id="home-btn">🏠 Home</button>
-    <button class="btn btn-ghost btn-sm" onclick="doLogout()" style="padding:6px 10px">⏏</button>
+    <div class="timer" id="timer">03:00:00</div>
+    <button class="btn btn-acc btn-sm" id="sub-btn" style="display:none" onclick="confirmSubmit()" data-i18n="submitTest">Submit Test</button>
+    <button class="btn btn-ghost btn-sm" id="rank-btn" onclick="showRanking();closeHdrMenu()">🏆 <span data-i18n="rankings">Rankings</span></button>
+    <button class="btn btn-ghost btn-sm" id="student-dash-btn" onclick="showStudentDash();closeHdrMenu()">🎓 <span data-i18n="myRank">My Rank</span></button>
+    <button class="btn btn-ghost btn-sm" id="contact-btn" onclick="showContactUs();closeHdrMenu()">📞 <span data-i18n="contact">Contact</span></button>
+    <button class="btn btn-ghost btn-sm" onclick="openBookmarksModal();closeHdrMenu()">🔖 <span data-i18n="myBookmarks">My Bookmarks</span></button>
+    <button class="btn btn-ghost btn-sm" onclick="goHome();closeHdrMenu()" id="home-btn">🏠 <span data-i18n="home">Home</span></button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleLanguage()">🌐 <span id="lang-toggle-label">EN / हिं</span></button>
+    <button class="btn btn-ghost btn-sm" onclick="doLogout()" style="padding:6px 10px">⏏ <span data-i18n="logout">Logout</span></button>
   </div>
+  <button class="hdr-bell" id="hdr-bell" onclick="toggleNotifPanel()">🔔<span class="hdr-bell-badge" id="hdr-bell-badge" style="display:none">0</span></button>
+  <button class="hdr-burger" id="hdr-burger" onclick="toggleHdrMenu()">☰</button>
 </div>
 
 <!-- HOME -->
 <div class="scr on" id="hs">
+  <div class="streak-strip" id="streak-strip" style="display:none">
+    <div class="streak-box">
+      <span class="streak-fire" id="streak-fire-icon">🔥</span>
+      <div>
+        <div class="streak-num" id="streak-num">0</div>
+        <div class="streak-lbl">Day Streak</div>
+      </div>
+    </div>
+    <div class="badges-row" id="badges-row"></div>
+  </div>
   <div class="hero pcm" id="hero-banner">
     <h1 id="hero-title">PrepXpert Test Series</h1>
     <p id="hero-desc">Practice with authentic past papers. Choose your stream below.</p>
@@ -447,18 +557,21 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
     </div>
     <div id="sub-strip" style="display:flex;gap:10px;margin-bottom:18px"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <div id="stream-label" style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--pri)"></div>
+      <div id="stream-label" style="font-family:'Rajdhani','Hind',sans-serif;font-size:14px;font-weight:700;color:var(--pri)"></div>
     </div>
-    <div class="sec-ttl">Free Tests</div>
+    <div class="sec-ttl" data-i18n="freeTests">Free Tests</div>
     <div id="question-container"></div>
     <div class="tgrid" id="free-grid"></div>
-    <div class="sec-ttl">Paid Tests</div>
+    <div class="sec-ttl" data-i18n="paidTests">Paid Tests</div>
     <div class="tgrid" id="paid-grid"></div>
+
+    <div class="sec-ttl" id="pyp-ttl" style="display:none" data-i18n="pypTitle">📄 Previous Year Papers</div>
+    <div class="tgrid" id="pyp-grid"></div>
 
     <!-- CONTACT FOOTER BANNER -->
     <div id="contact-footer-banner" style="background:linear-gradient(135deg,#0d47a1,#1565c0);border-radius:14px;padding:18px 22px;margin-top:8px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">
       <div style="color:#fff">
-        <div style="font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;margin-bottom:3px">💬 Need Help?</div>
+        <div style="font-family:'Rajdhani','Hind',sans-serif;font-size:17px;font-weight:700;margin-bottom:3px">💬 Need Help?</div>
         <div style="font-size:12px;color:rgba(255,255,255,.75)">Questions about tests, payment, or content? We're here!</div>
       </div>
       <button class="btn btn-ghost" style="border-color:rgba(255,255,255,.5);color:#fff;flex-shrink:0" onclick="showContactUs()">📞 Contact Us →</button>
@@ -497,6 +610,12 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
         <div class="leg-item"><div class="qball" style="background:var(--pri);box-shadow:0 0 0 2px var(--acc)">2</div>Current Question</div>
       </div>
     </div>
+    <div class="practice-toggle-box">
+      <label class="check-row">
+        <input type="checkbox" id="practice-mode-chk" onchange="updatePracticeModeUI()">
+        <span><strong>🎓 Practice Mode</strong> — no timer, see the correct answer instantly after each question. Great for learning, not for real exam simulation.</span>
+      </label>
+    </div>
     <div style="display:flex;gap:10px;justify-content:flex-end;padding:0 0 20px">
       <button class="btn btn-out" onclick="showScr('hs')">← Back</button>
       <button class="btn btn-pri" id="start-btn" onclick="startExam()">Begin Test →</button>
@@ -512,6 +631,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
       <div class="qhdr">
         <div class="qnum-badge" id="qnuml">Q1 of 50</div>
         <div class="qmrk-badge" id="qmrkl">1 Mark</div>
+        <button class="bm-btn" id="bm-btn" onclick="toggleBookmark()" title="Bookmark this question">🔖</button>
       </div>
       <div id="neet-neg-hint" class="neet-neg-warning" style="display:none">⚠ MCQ Wrong answer = −1 mark. Numerical wrong = 0 marks. Skip MCQ if unsure.</div>
       <div class="qtxt" id="qtxt">Loading...</div>
@@ -559,6 +679,11 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
     </div>
   </div>
   <div class="secres" id="secres"></div>
+  <div class="sa-wrap" id="smart-analysis" style="display:none">
+    <h3>🧠 Smart Analysis</h3>
+    <div class="sa-sub">Rule-based insights generated from your test history — no external AI used.</div>
+    <div class="sa-grid" id="sa-grid"></div>
+  </div>
   <div class="arev">
     <h3>📋 Answer Review with Solutions</h3>
     <div id="arev-list"></div>
@@ -575,11 +700,11 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
   <div class="modal" style="max-width:440px">
     <div style="text-align:center;margin-bottom:18px">
       <div style="font-size:36px;margin-bottom:8px">🔓</div>
-      <h2 style="font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--pri)">Unlock All Paid Tests</h2>
+      <h2 style="font-family:'Rajdhani','Hind',sans-serif;font-size:22px;font-weight:700;color:var(--pri)">Unlock All Paid Tests</h2>
       <p style="font-size:13px;color:var(--muted);margin-top:6px;line-height:1.6">One-time payment unlocks <strong>all</strong> paid tests — forever on this device.</p>
     </div>
     <div style="background:#e8f5e9;border:1.5px solid #a5d6a7;border-radius:10px;padding:14px;margin-bottom:18px;text-align:center;">
-      <div style="font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;color:var(--ok)">₹<span id="pay-amount">30</span></div>
+      <div style="font-family:'Rajdhani','Hind',sans-serif;font-size:32px;font-weight:700;color:var(--ok)">₹<span id="pay-amount">30</span></div>
       <div style="font-size:12px;color:var(--muted);margin-top:2px">One-time · All tests · All streams</div>
     </div>
     <div id="rzp-not-configured" style="display:none;background:#fff3e0;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:12px;color:#5d4037;margin-bottom:10px">
@@ -595,6 +720,114 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
       ✅ Payment Successful! Tests unlocked.
     </div>
     <button class="btn btn-out" style="width:100%;margin-top:4px" onclick="closeModal('pay-modal')">Cancel</button>
+  </div>
+</div>
+
+<!-- TERMS & CONDITIONS MODAL -->
+<div class="modal-ov" id="terms-modal">
+  <div class="modal" style="max-width:640px;max-height:85vh;display:flex;flex-direction:column">
+    <div style="text-align:center;margin-bottom:14px;flex-shrink:0">
+      <h2 style="font-family:'Rajdhani','Hind',sans-serif;font-size:22px;font-weight:700;color:var(--pri)">Terms of Use & Privacy Policy</h2>
+      <p style="font-size:11px;color:var(--muted);margin-top:4px">Last updated: <span id="terms-date"></span></p>
+    </div>
+    <div style="overflow-y:auto;flex:1;font-size:12.5px;line-height:1.7;color:var(--txt);padding:0 4px 12px;border-top:1px solid var(--bdr);padding-top:14px">
+
+<p><strong>1. About PrepXpert</strong><br>
+PrepXpert ("we", "us", "the Platform") is an independent online mock-test and exam-preparation platform for NEET, JEE, and related competitive exams. PrepXpert is <strong>not affiliated with, endorsed by, or connected to</strong> the National Testing Agency (NTA), any government examination body, or any official exam-conducting authority. All test content is created independently for practice purposes only.</p>
+
+<p><strong>2. Eligibility & Accounts</strong><br>
+By registering, you confirm the information you provide (name, mobile number) is accurate. If you are under 18, you confirm you have your parent/guardian's permission to use this Platform. Each account is intended for individual use only; sharing login credentials to bypass payment is a violation of these terms and may result in account termination without refund.</p>
+
+<p><strong>3. Nature of Content — No Guarantee of Results</strong><br>
+Mock tests, questions, and rankings on this Platform are provided for practice and self-assessment purposes only. We do not guarantee the accuracy, completeness, or exam-relevance of any question, nor do we guarantee any particular exam score, rank, or admission outcome as a result of using this Platform. PrepXpert is a supplementary study tool, not a substitute for official exam preparation resources.</p>
+
+<p><strong>4. Payments & Refunds</strong><br>
+Certain tests require a one-time payment, processed securely through Razorpay, a third-party payment gateway. We do not store or have access to your card, UPI, or banking credentials — these are handled entirely by Razorpay in accordance with their own security standards and policies.<br><br>
+<strong>Refund Policy:</strong> Since paid content is unlocked digitally and instantly upon successful payment, all payments are <strong>non-refundable</strong> except where required by applicable Indian law, or in cases of a verified duplicate/failed transaction where payment was deducted but access was not granted — in such cases, contact us within 7 days with your payment reference ID for resolution.</p>
+
+<p><strong>5. Prohibited Conduct</strong><br>
+You agree not to: (a) attempt to bypass, hack, or exploit the payment or access-control system to obtain paid content without payment; (b) reverse-engineer, scrape, copy, or redistribute test content for commercial purposes; (c) use automated tools/bots to interact with the Platform; (d) impersonate another person or provide false registration information; (e) attempt to disrupt or overload our servers. Violation may result in immediate account suspension without refund, and we reserve the right to pursue legal remedies available under Indian law, including the Information Technology Act, 2000.</p>
+
+<p><strong>6. Intellectual Property</strong><br>
+All test questions, branding, design, and content on this Platform are the property of PrepXpert unless otherwise stated, and are protected under Indian copyright law. You may not copy, reproduce, or distribute this content without prior written permission.</p>
+
+<p><strong>7. Disclaimer of Warranties & Limitation of Liability</strong><br>
+The Platform is provided "as is" without warranties of any kind, express or implied. To the maximum extent permitted under Indian law, PrepXpert, its developers, and administrators shall not be liable for: any indirect, incidental, or consequential damages arising from use of the Platform; technical downtime, data loss, or service interruptions; any loss arising from third-party services (including Razorpay) beyond our reasonable control; or any decision, exam outcome, or academic result influenced by use of this Platform. Your use of the Platform is at your own discretion and risk.</p>
+
+<p><strong>8. Fraud, Scams & Impersonation</strong><br>
+PrepXpert will never ask for your password, OTP, or full payment card details outside of the official Razorpay checkout window. We do not conduct business over unsolicited phone calls or messages asking for money outside this app. If you are contacted by anyone claiming to represent PrepXpert asking for payment through any channel other than the in-app Razorpay checkout, please do not comply and report it to us immediately — this would be a scam impersonating us, not an activity of the actual Platform or its developers.</p>
+
+<p><strong>9. Data & Privacy</strong><br>
+We collect the information you provide at registration (name, mobile number) and your test results, to operate the Platform and display rankings. We do not sell your personal data to third parties. Payment information is processed directly by Razorpay and is not stored on our servers. For any data deletion requests, contact us using the details below.</p>
+
+<p><strong>10. Grievance Redressal</strong><br>
+In accordance with the Information Technology Act, 2000 and rules made thereunder, any grievances regarding content or use of this Platform may be addressed to:<br>
+<span style="color:var(--muted)">Grievance Officer: [Your Name]<br>
+Email: [your-email@example.com]<br>
+Response time: within 15 working days</span></p>
+
+<p><strong>11. Governing Law</strong><br>
+These terms are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts of <span style="color:var(--muted)">[Your City, State]</span>, India.</p>
+
+<p><strong>12. Changes to These Terms</strong><br>
+We may update these Terms from time to time. Continued use of the Platform after changes constitutes acceptance of the revised terms.</p>
+
+<p style="color:var(--muted);font-size:11px;margin-top:16px;padding-top:12px;border-top:1px solid var(--bdr)">This document is a general template and does not constitute legal advice. The Platform operator is encouraged to have this reviewed by a qualified lawyer before relying on it, particularly the sections on refunds, liability, and grievance redressal, to ensure full compliance with applicable Indian consumer protection and IT laws.</p>
+
+    </div>
+    <button class="btn btn-pri" style="width:100%;margin-top:12px;flex-shrink:0" onclick="closeModal('terms-modal')">Close</button>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div class="modal-ov" id="notif-modal">
+  <div class="modal" style="max-width:420px;max-height:75vh;display:flex;flex-direction:column">
+    <div style="text-align:center;margin-bottom:10px;flex-shrink:0">
+      <h2 style="font-family:'Rajdhani','Hind',sans-serif;font-size:20px;font-weight:700;color:var(--pri)">🔔 Notifications</h2>
+    </div>
+    <div id="notif-list" style="overflow-y:auto;flex:1;border-top:1px solid var(--bdr);padding-top:6px">
+      <div style="text-align:center;color:var(--muted);font-size:12.5px;padding:20px 0">Loading…</div>
+    </div>
+    <button class="btn btn-out" style="width:100%;margin-top:12px;flex-shrink:0" onclick="closeModal('notif-modal')">Close</button>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD -->
+<div class="modal-ov" id="fp-modal">
+  <div class="modal" style="max-width:400px">
+    <div style="text-align:center;margin-bottom:16px">
+      <h2 style="font-family:'Rajdhani','Hind',sans-serif;font-size:20px;font-weight:700;color:var(--pri)">🔑 Reset Password</h2>
+    </div>
+    <div id="fp-err" class="lerr"></div>
+
+    <div id="fp-step1">
+      <div class="lfield"><label>Mobile Number</label><input id="fp-mobile" type="tel" placeholder="10-digit mobile" maxlength="10"></div>
+      <button class="btn btn-pri" style="width:100%;padding:12px;border-radius:10px" onclick="fpFindUser()">Continue →</button>
+    </div>
+
+    <div id="fp-step2" style="display:none">
+      <div class="lfield"><label id="fp-question-label">Security Question</label><input id="fp-answer" type="text" placeholder="Your answer" autocomplete="off"></div>
+      <button class="btn btn-pri" style="width:100%;padding:12px;border-radius:10px" onclick="fpVerifyAnswer()">Verify →</button>
+    </div>
+
+    <div id="fp-step3" style="display:none">
+      <div class="lfield"><label>New Password</label><input id="fp-newpass" type="password" placeholder="Min 8 chars, 1 uppercase, 1 number"></div>
+      <div class="lfield"><label>Confirm New Password</label><input id="fp-newpass2" type="password" placeholder="Re-enter new password"></div>
+      <button class="btn btn-ok" style="width:100%;padding:12px;border-radius:10px" onclick="fpResetPassword()">Reset Password ✓</button>
+    </div>
+
+    <button class="btn btn-out" style="width:100%;margin-top:10px" onclick="closeModal('fp-modal')">Cancel</button>
+  </div>
+</div>
+
+<!-- BOOKMARKS -->
+<div class="modal-ov" id="bookmarks-modal">
+  <div class="modal" style="max-width:520px;max-height:80vh;display:flex;flex-direction:column">
+    <div style="text-align:center;margin-bottom:10px;flex-shrink:0">
+      <h2 style="font-family:'Rajdhani','Hind',sans-serif;font-size:20px;font-weight:700;color:var(--pri)">🔖 My Bookmarked Questions</h2>
+    </div>
+    <div id="bookmarks-list" style="overflow-y:auto;flex:1;border-top:1px solid var(--bdr);padding-top:6px"></div>
+    <button class="btn btn-out" style="width:100%;margin-top:12px;flex-shrink:0" onclick="closeModal('bookmarks-modal')">Close</button>
   </div>
 </div>
 
@@ -624,7 +857,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--txt);min-h
         <div class="rank-meta" id="my-rank-meta">—</div>
       </div>
       <div style="text-align:right">
-        <div style="font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;color:var(--ok)" id="my-rank-score">—</div>
+        <div style="font-family:'Rajdhani','Hind',sans-serif;font-size:26px;font-weight:700;color:var(--ok)" id="my-rank-score">—</div>
         <div style="font-size:11px;color:var(--muted)">Best Score</div>
       </div>
     </div>
@@ -792,7 +1025,12 @@ let SUBS=PCM_SUBS;
 
 // ═══════════════════════ STATE ═══════════════════════
 let tests=[], settings={duration:180,price:30};
-let curTest=null, curSec=0, curQ=0, timerInt=null, timeLeft=0, pendingPaid=null;
+let curTest=null, curSec=0, curQ=0, timerInt=null, timeLeft=0, pendingPaid=null, practiceMode=false;
+function updatePracticeModeUI(){
+  practiceMode=document.getElementById('practice-mode-chk').checked;
+  const sb=document.getElementById('start-btn');
+  sb.textContent=practiceMode?'Begin Practice →':'Begin Test →';
+}
 let curStream='pcm';
 let currentUser=null;
 
@@ -884,6 +1122,7 @@ async function syncFromServer(){
 
   localStorage.setItem('mhtcet_student_data', JSON.stringify({tests, settings}));
   renderHero(); renderSubStrip(); renderHome();
+  fetchNotifications(); // populate the bell badge without opening the panel
   console.log(`✅ Synced from server`);
 }
 
@@ -981,12 +1220,24 @@ function renderHome(){
   fg.innerHTML=''; pg.innerHTML='';
   const streamTests=tests.filter(t=>(t.stream||'pcm')===curStream);
   const visible=streamTests.filter(t=>t.active||(t.qbank&&(t.qbank[0]?.length||t.qbank[1]?.length||t.qbank[2]?.length)));
-  const freeTests=visible.filter(t=>t.free);
-  const paidTests=visible.filter(t=>!t.free);
+  const mockTests=visible.filter(t=>!t.isPastPaper);
+  const freeTests=mockTests.filter(t=>t.free);
+  const paidTests=mockTests.filter(t=>!t.free);
   if(!freeTests.length) fg.innerHTML=`<p style="color:var(--muted);font-size:13px;padding:4px 0">No ${curStream.toUpperCase()} free tests available yet.</p>`;
   freeTests.forEach(t=>fg.appendChild(makeTestCard(t)));
   if(!paidTests.length) pg.innerHTML=`<p style="color:var(--muted);font-size:13px;padding:4px 0">No ${curStream.toUpperCase()} paid tests available yet.</p>`;
   paidTests.forEach(t=>pg.appendChild(makeTestCard(t)));
+
+  // Previous Year Papers — sorted newest year first
+  const pypTtl=document.getElementById('pyp-ttl'), pypGrid=document.getElementById('pyp-grid');
+  const pastPapers=visible.filter(t=>t.isPastPaper).sort((a,b)=>(b.year||0)-(a.year||0));
+  pypGrid.innerHTML='';
+  if(pastPapers.length){
+    pypTtl.style.display='block';
+    pastPapers.forEach(t=>pypGrid.appendChild(makeTestCard(t)));
+  } else {
+    pypTtl.style.display='none';
+  }
 }
 
 function makeTestCard(t){
@@ -1004,6 +1255,7 @@ function makeTestCard(t){
   const topicsHtml=(topics.phy||topics.che||topics.third)?`<div style="margin-top:9px;font-size:11px;line-height:1.75;background:#f8f9ff;border-radius:8px;padding:8px 11px;border:1px solid #e0e3ff;">${topics.phy?`<div><span style="font-weight:700;color:var(--phy)">Phy:</span> ${escHtml(topics.phy)}</div>`:''}${topics.che?`<div><span style="font-weight:700;color:var(--che)">Chem:</span> ${escHtml(topics.che)}</div>`:''}${topics.third?`<div><span style="font-weight:700;color:${thirdColor}">${thirdLbl}:</span> ${escHtml(topics.third)}</div>`:''}</div>`:'';
   card.innerHTML=`
     <span class="tbadge ${t.free?'free':'paid'} ${isNEET||isJEE?'neet-badge':''}">${t.free?'FREE':'PAID'}${isNEET?' · NEET':isJEE?' · JEE':''}</span>
+    ${t.isPastPaper?`<span class="tbadge" style="background:#37474f;color:#fff;margin-left:6px">📄 ${t.year||'Past Paper'}</span>`:''}
     <h3>${escHtml(t.name)}</h3>
     <p>${escHtml(t.desc||'')}</p>
     ${topicsHtml}
@@ -1057,6 +1309,9 @@ function openInst(id){
   // Update start button color for NEET
   const sb=document.getElementById('start-btn');
   sb.className=`btn ${isNEET||isJEE?'btn-neet':'btn-pri'}`;
+  document.getElementById('practice-mode-chk').checked=false;
+  practiceMode=false;
+  sb.textContent='Begin Test →';
   showScr('inst-scr');
 }
 
@@ -1071,14 +1326,22 @@ function startExam(){
   stabs.innerHTML=SUBS.map((sub,i)=>`<div class="stab${i===0?' on':''}" data-s="${i}" onclick="switchSec(${i})">${sub.name}</div>`).join('');
   document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
   document.getElementById('exam-scr').classList.add('on');
-  document.getElementById('timer').style.display='block';
-  document.getElementById('sub-btn').style.display='inline-flex';
-  document.getElementById('home-btn').style.display='none';
   // Show neg marking hint during exam
   document.getElementById('neet-neg-hint').style.display=(isNEET||curTest.stream==='jee')?'flex':'none';
-  timeLeft=settings.duration*60;
-  updateTimer();
-  timerInt=setInterval(()=>{ timeLeft--; if(timeLeft<=0){clearInterval(timerInt);submitTest();return;} updateTimer(); },1000);
+  if(practiceMode){
+    document.getElementById('timer').style.display='none';
+    document.getElementById('sub-btn').textContent='Finish Practice';
+    document.getElementById('sub-btn').style.display='inline-flex';
+    document.getElementById('home-btn').style.display='none';
+  } else {
+    document.getElementById('timer').style.display='block';
+    document.getElementById('sub-btn').textContent='Submit Test';
+    document.getElementById('sub-btn').style.display='inline-flex';
+    document.getElementById('home-btn').style.display='none';
+    timeLeft=settings.duration*60;
+    updateTimer();
+    timerInt=setInterval(()=>{ timeLeft--; if(timeLeft<=0){clearInterval(timerInt);submitTest();return;} updateTimer(); },1000);
+  }
   checkMobNav();
   if(window.innerWidth<=768){
     const sb=document.getElementById('exam-sb');
@@ -1106,6 +1369,8 @@ function switchSec(s){
 
 function renderQ(){
   const qs=curTest.state[curSec]; if(!qs||!qs.length) return;
+  const existingFb=document.getElementById('practice-feedback');
+  if(existingFb) existingFb.remove();
   const q=qs[curQ]; const sub=SUBS[curSec];
   const isNEET=curTest.stream==='neet';
   const isJEE=curTest.stream==='jee';
@@ -1129,13 +1394,13 @@ function renderQ(){
     const numVal=q.numericalInput!==undefined?q.numericalInput:'';
     ol.innerHTML=`
       <div style="background:#fff3e0;border:2px solid #e65100;border-radius:12px;padding:18px 20px;margin-bottom:8px;">
-        <div style="font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#e65100;margin-bottom:10px;">
+        <div style="font-family:'Rajdhani','Hind',sans-serif;font-size:14px;font-weight:700;color:#e65100;margin-bottom:10px;">
           🔢 Numerical Answer — Type your answer below
         </div>
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
           <input type="number" id="num-answer-inp" step="any" placeholder="Enter numerical answer..."
             value="${numVal}"
-            style="flex:1;min-width:160px;padding:12px 16px;font-size:18px;font-family:'Rajdhani',sans-serif;font-weight:700;border:2px solid #e65100;border-radius:8px;outline:none;background:#fffde7;color:#bf360c;"
+            style="flex:1;min-width:160px;padding:12px 16px;font-size:18px;font-family:'Rajdhani','Hind',sans-serif;font-weight:700;border:2px solid #e65100;border-radius:8px;outline:none;background:#fffde7;color:#bf360c;"
             oninput="saveNumericalInput(this.value)"
             onkeydown="if(event.key==='Enter'){saveNext();}"
           >
@@ -1159,6 +1424,44 @@ function renderQ(){
     });
   }
   updateUA();
+  updateBookmarkBtn();
+}
+function bmKey(q){ return `${curTest.id}_${curTest.stream}_${curSec}_${q.q.slice(0,60)}`; }
+function updateBookmarkBtn(){
+  const q=curTest.state[curSec][curQ];
+  const btn=document.getElementById('bm-btn');
+  if(!btn||!q)return;
+  const marked=(currentUser?.bookmarks||[]).some(b=>b.key===bmKey(q));
+  btn.classList.toggle('on',marked);
+}
+function toggleBookmark(){
+  if(!currentUser)return;
+  const q=curTest.state[curSec][curQ];
+  const key=bmKey(q);
+  currentUser.bookmarks=currentUser.bookmarks||[];
+  const idx=currentUser.bookmarks.findIndex(b=>b.key===key);
+  if(idx>=0){
+    currentUser.bookmarks.splice(idx,1);
+    toast('🔖 Removed from bookmarks');
+  } else {
+    currentUser.bookmarks.push({
+      key,
+      testName:curTest.name,
+      subject:SUBS[curSec].name,
+      question:q.q,
+      opts:q.opts||null,
+      correct:q.ans!==undefined?q.ans:null,
+      sol:q.sol||'',
+      isNumerical:q.isNumerical||false,
+      correctNum:q.correctNumerical!==undefined?q.correctNumerical:null,
+      ts:Date.now()
+    });
+    toast('🔖 Bookmarked for later review');
+  }
+  const users=getUsers(); const uidx=users.findIndex(u=>u.mobile===currentUser.mobile);
+  if(uidx>=0){ users[uidx].bookmarks=currentUser.bookmarks; saveUsers(users); }
+  localStorage.setItem('mhtcet_current_user',JSON.stringify(currentUser));
+  updateBookmarkBtn();
 }
 
 function saveNumericalInput(val){
@@ -1167,7 +1470,27 @@ function saveNumericalInput(val){
   q.status=val.trim()!==''?'ans':'skp';
   renderSB();
 }
-function selectOpt(i){ const q=curTest.state[curSec][curQ]; q.chosen=(q.chosen===i)?null:i; q.status=q.chosen!==null?'ans':'skp'; renderQ(); renderSB(); }
+function selectOpt(i){
+  const q=curTest.state[curSec][curQ];
+  q.chosen=(q.chosen===i)?null:i;
+  q.status=q.chosen!==null?'ans':'skp';
+  renderQ(); renderSB();
+  if(practiceMode && q.chosen!==null) showPracticeFeedback(q);
+}
+function showPracticeFeedback(q){
+  let fb=document.getElementById('practice-feedback');
+  if(!fb){
+    fb=document.createElement('div');
+    fb.id='practice-feedback';
+    document.getElementById('opts').after(fb);
+  }
+  const isCorrect=q.chosen===q.ans;
+  const ok=['A','B','C','D'];
+  fb.className=`practice-feedback ${isCorrect?'correct':'wrong'}`;
+  fb.innerHTML=`<div class="pf-title">${isCorrect?'✅ Correct!':'❌ Not quite'}</div>
+    ${!isCorrect?`<div>Correct answer: <b>${ok[q.ans]}) ${escHtml(q.opts[q.ans]||'')}</b></div>`:''}
+    ${q.sol?`<div style="margin-top:6px">💡 ${escHtml(q.sol)}</div>`:''}`;
+}
 function saveNext(){const q=curTest.state[curSec][curQ];q.status=q.chosen!==null?'ans':'skp';navNext();}
 function skipQ(){curTest.state[curSec][curQ].status='skp';navNext();}
 function markRev(){curTest.state[curSec][curQ].status='mkd';navNext();}
@@ -1241,6 +1564,13 @@ function updateUA(){
 }
 
 function confirmSubmit(){
+  if(practiceMode){
+    document.getElementById('conf-msg').textContent='Finish this practice session? Your answers here are for learning only and won\'t be saved to your test history or the leaderboard.';
+    document.querySelector('#conf-ov .btn-err').setAttribute('onclick','finishPractice()');
+    document.getElementById('conf-ov').classList.add('on');
+    return;
+  }
+  document.querySelector('#conf-ov .btn-err').setAttribute('onclick','submitTest()');
   let ua=0;
 [0,1,2].forEach(s=>(curTest.state[s] || []).forEach(q =>{
   if (!q) return;   // ✅ ADD THIS LINE
@@ -1261,18 +1591,27 @@ function confirmSubmit(){
 
 function submitTest(){
   closeModal('conf-ov');
+  const timeTakenSec=Math.max(0,(settings.duration*60)-timeLeft);
   if(timerInt){clearInterval(timerInt);timerInt=null;}
   setExamMode(false);
   document.getElementById('timer').style.display='none';
   document.getElementById('sub-btn').style.display='none';
   document.getElementById('home-btn').style.display='inline-flex';
-  showResults();
+  showResults(timeTakenSec);
+}
+function finishPractice(){
+  closeModal('conf-ov');
+  if(timerInt){clearInterval(timerInt);timerInt=null;}
+  setExamMode(false);
+  practiceMode=false;
+  toast('🎓 Practice session finished — great job learning!');
+  goHome();
 }
 
 function retakeTest(){openInst(curTest.id);}
 
 // ═══════════════════════ RESULTS ═══════════════════════
-function showResults(){
+function showResults(timeTakenSec){
   const isNEET=curTest.stream==='neet';
   const isJEE=curTest.stream==='jee';
   let totScore=0,totC=0,totW=0,totS=0,totNeg=0;
@@ -1304,6 +1643,14 @@ function showResults(){
     secStats.push({c,w,sk,sc,neg,tot:maxScore});
     totScore+=sc; totC+=c; totW+=w; totS+=sk; totNeg+=neg;
   });
+  // Per-subject breakdown (used by Smart Analysis + saved with the score entry)
+  const subjectsData=secStats.map((st,s)=>({
+    name:SUBS[s].name,
+    correct:st.c, wrong:st.w, skipped:st.sk,
+    score:st.sc, total:st.tot,
+    accuracy:(st.c+st.w)>0?Math.round(st.c/(st.c+st.w)*100):0
+  }));
+
   let name = prompt("Enter your name:");
   while (name !== null && name.trim() === '') {
     name = prompt("Please enter a valid name to save your result:");
@@ -1357,7 +1704,7 @@ if (name === null) {
     const card=document.createElement('div');
     card.className=`src ${SUBS[s].cls}`;
     card.innerHTML=`<h4>${SUBS[s].name}</h4>
-      <div style="font-size:20px;font-weight:700;font-family:'Rajdhani',sans-serif;color:${SUBS[s].color}">${st.sc}/${st.tot}</div>
+      <div style="font-size:20px;font-weight:700;font-family:'Rajdhani','Hind',sans-serif;color:${SUBS[s].color}">${st.sc}/${st.tot}</div>
       <div class="pbar"><div class="pfill" style="width:${pct}%;background:${SUBS[s].color}"></div></div>
       <div style="font-size:11px;color:var(--muted);margin-top:5px">✓ ${st.c} · ✗ ${st.w} · — ${st.sk}${isNEET?` · −${st.neg} deducted`:''}</div>`;
     sr.appendChild(card);
@@ -1407,8 +1754,174 @@ if (name === null) {
     });
   });
 
-  saveScore(curTest.name, curTest.stream||'pcm', totScore, totalMarks, totC, totW, totS);
+  saveScore(curTest.name, curTest.stream||'pcm', totScore, totalMarks, totC, totW, totS, subjectsData, timeTakenSec||0);
+  checkBadges();
+  renderSmartAnalysis();
   showScr('result-scr');
+}
+
+// ═══════════════════════ SMART ANALYSIS (rule-based, local data only) ═══════════════════════
+function renderSmartAnalysis(){
+  const wrap=document.getElementById('smart-analysis');
+  const grid=document.getElementById('sa-grid');
+  if(!currentUser || !currentUser.scores || !currentUser.scores.length){
+    wrap.style.display='none';
+    return;
+  }
+  wrap.style.display='block';
+  const hist=currentUser.scores;
+  const cur=hist[hist.length-1];
+  const prevAll=hist.slice(0,-1);
+  const sameTestHist=hist.filter(h=>h.testName===cur.testName);
+  const prevSameTest=sameTestHist.slice(0,-1);
+  const isNEET=cur.stream==='neet', isJEE=cur.stream==='jee';
+
+  const pct=e=>e.totalMarks>0?Math.round(Math.max(0,e.score)/e.totalMarks*100):0;
+  const curPct=pct(cur);
+
+  let html='';
+
+  // ── 1. SCORE TREND ──────────────────────────────
+  const trendData=hist.slice(-8);
+  const maxPct=Math.max(100,...trendData.map(pct));
+  html+=`<div class="sa-block full"><h5>📈 Score Trend <span style="font-weight:400;color:var(--muted)">(last ${trendData.length} test${trendData.length>1?'s':''})</span></h5>
+    <div class="sa-trend">
+      ${trendData.map((e,i)=>{
+        const p=pct(e), isCur=i===trendData.length-1;
+        const h=Math.max(4,Math.round(p/maxPct*100*0.62));
+        return `<div class="sa-trend-bar${isCur?' cur':''}"><div class="sa-trend-val">${p}%</div><div class="sa-trend-fill" style="height:${h}px"></div><div class="sa-trend-lbl">${isCur?'This test':(new Date(e.ts)).toLocaleDateString('en-IN',{day:'2-digit',month:'short'})}</div></div>`;
+      }).join('')}
+    </div>
+    <div style="font-size:11px;color:var(--muted)">${trendData.length<2?'Complete more tests to see your trend develop.':'Bar height = score % of that test\'s total marks.'}</div>
+  </div>`;
+
+  // ── 2. ACCURACY ──────────────────────────────
+  const avgPrevAcc=prevAll.length?Math.round(prevAll.reduce((a,e)=>a+e.accuracy,0)/prevAll.length):null;
+  const accDelta=avgPrevAcc!==null?cur.accuracy-avgPrevAcc:null;
+  html+=`<div class="sa-block"><h5>🎯 Accuracy</h5>
+    <div class="sa-bigstat"><div class="sv">${cur.accuracy}%</div><div class="sl">This test (of attempted)</div></div>
+    ${accDelta!==null?`<div style="text-align:center;margin-top:4px" class="sa-delta ${accDelta>0?'up':accDelta<0?'down':'flat'}">${accDelta>0?'▲':accDelta<0?'▼':'▶'} ${Math.abs(accDelta)}% vs your average (${avgPrevAcc}%)</div>`
+      :'<div class="sa-empty">First test — baseline set for future comparison.</div>'}
+  </div>`;
+
+  // ── 3. SUBJECT STRENGTHS / WEAKNESSES ──────────────────────────────
+  const subs=(cur.subjects||[]).filter(s=>s.total>0);
+  const attempted=subs.filter(s=>(s.correct+s.wrong)>0);
+  let subRows='';
+  if(subs.length){
+    const sorted=[...subs].sort((a,b)=>b.accuracy-a.accuracy);
+    subRows=sorted.map(s=>{
+      const attemptedQ=s.correct+s.wrong;
+      let badge;
+      if(attemptedQ===0) badge=`<span class="sa-badge info">Not attempted</span>`;
+      else if(s.accuracy>=75) badge=`<span class="sa-badge good">💪 Strength</span>`;
+      else if(s.accuracy>=50) badge=`<span class="sa-badge mid">Average</span>`;
+      else badge=`<span class="sa-badge bad">⚠ Weak</span>`;
+      return `<div class="sa-row"><span class="sa-name">${s.name}</span><span>${badge} <b style="margin-left:6px">${s.accuracy}%</b></span></div>`;
+    }).join('');
+  } else {
+    subRows='<div class="sa-empty">No subject-wise data for this test.</div>';
+  }
+  html+=`<div class="sa-block"><h5>📚 Subject Strengths & Weaknesses</h5>${subRows}</div>`;
+
+  // ── 4. MISTAKES ANALYSIS ──────────────────────────────
+  const totalWrong=subs.reduce((a,s)=>a+s.wrong,0);
+  let mistakeRows='';
+  if(totalWrong>0){
+    const sortedByWrong=[...subs].sort((a,b)=>b.wrong-a.wrong).filter(s=>s.wrong>0);
+    mistakeRows=sortedByWrong.map(s=>{
+      const share=Math.round(s.wrong/totalWrong*100);
+      return `<div class="sa-row"><span class="sa-name">${s.name}</span><span>${s.wrong} wrong <span style="color:var(--muted)">(${share}% of mistakes)</span></span></div>`;
+    }).join('');
+    const worst=sortedByWrong[0];
+    mistakeRows+=`<div style="font-size:11.5px;color:var(--err);margin-top:6px">Most mistakes came from <b>${worst.name}</b> — revisit those concepts first.</div>`;
+  } else {
+    mistakeRows='<div class="sa-empty">🎉 No wrong answers in this test!</div>';
+  }
+  html+=`<div class="sa-block"><h5>❌ Mistake Analysis</h5>${mistakeRows}</div>`;
+
+  // ── 5. SPEED ──────────────────────────────
+  const totalQ=(cur.subjects||[]).length?(curTest?.state?[0,1,2].reduce((a,s)=>a+(curTest.state[s]?.length||0),0):subs.length):0;
+  const qCount=totalQ||(cur.correct+cur.wrong+cur.skipped)||1;
+  const secPerQ=cur.timeTakenSec>0?cur.timeTakenSec/qCount:0;
+  const allottedSecPerQ=(settings.duration*60)/qCount;
+  let speedHtml;
+  if(!cur.timeTakenSec){
+    speedHtml='<div class="sa-empty">Timing data not available for this test.</div>';
+  } else {
+    const ratio=secPerQ/allottedSecPerQ;
+    const mm=Math.floor(cur.timeTakenSec/60), ss=cur.timeTakenSec%60;
+    let tag,tagCls,note;
+    if(ratio<0.65){tag='⚡ Fast';tagCls='mid';note='You finished quickly — double-check you\'re not rushing past questions.';}
+    else if(ratio<=1.05){tag='✅ Balanced';tagCls='good';note='Good pace — well matched to the time available.';}
+    else{tag='🐢 Slow';tagCls='bad';note='You used more time per question than average — practice timed sets to build speed.';}
+    speedHtml=`<div class="sa-bigstat"><div class="sv">${mm}m ${ss}s</div><div class="sl">Total time used (${Math.round(secPerQ)}s/question)</div></div>
+      <div style="text-align:center;margin-top:4px"><span class="sa-badge ${tagCls}">${tag}</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;text-align:center">${note}</div>`;
+  }
+  html+=`<div class="sa-block"><h5>⏱ Speed</h5>${speedHtml}</div>`;
+
+  // ── 6. IMPROVEMENT ──────────────────────────────
+  let impHtml;
+  if(prevSameTest.length){
+    const last=prevSameTest[prevSameTest.length-1];
+    const scoreDelta=cur.score-last.score;
+    const pctDelta=curPct-pct(last);
+    impHtml=`<div class="sa-bigstat"><div class="sv" style="color:${scoreDelta>0?'var(--ok)':scoreDelta<0?'var(--err)':'var(--muted)'}">${scoreDelta>0?'+':''}${scoreDelta}</div><div class="sl">marks vs your last attempt of this test</div></div>
+      <div style="text-align:center" class="sa-delta ${pctDelta>0?'up':pctDelta<0?'down':'flat'}">${pctDelta>0?'▲':pctDelta<0?'▼':'▶'} ${Math.abs(pctDelta)}% score-share change</div>`;
+  } else if(prevAll.length){
+    const avgPrevPct=Math.round(prevAll.reduce((a,e)=>a+pct(e),0)/prevAll.length);
+    const d=curPct-avgPrevPct;
+    impHtml=`<div class="sa-bigstat"><div class="sv" style="color:${d>0?'var(--ok)':d<0?'var(--err)':'var(--muted)'}">${d>0?'+':''}${d}%</div><div class="sl">vs your average score across ${prevAll.length} past test${prevAll.length>1?'s':''}</div></div>`;
+  } else {
+    impHtml='<div class="sa-empty">This is your first recorded test — future attempts will show your improvement here.</div>';
+  }
+  html+=`<div class="sa-block"><h5>📊 Improvement</h5>${impHtml}</div>`;
+
+  // ── 7. RANK / PERCENTILE ──────────────────────────────
+  let rankHtml;
+  try{
+    const rows=getAllScores(cur.testName,'all');
+    const myIdx=rows.findIndex(r=>r.mobile===currentUser.mobile);
+    if(myIdx>=0 && rows.length){
+      const rank=myIdx+1, total=rows.length;
+      const percentile=total>1?Math.round((total-rank)/(total-1)*100):100;
+      rankHtml=`<div class="sa-bigstat"><div class="sv">#${rank}<span style="font-size:14px;color:var(--muted)"> / ${total}</span></div><div class="sl">Rank for "${escHtml(cur.testName)}"</div></div>
+        <div style="text-align:center"><span class="sa-badge info">Top ${100-percentile<1?'<1':100-percentile}%</span></div>`;
+    } else {
+      rankHtml='<div class="sa-empty">Rank not available yet.</div>';
+    }
+  }catch(e){ rankHtml='<div class="sa-empty">Rank not available yet.</div>'; }
+  html+=`<div class="sa-block"><h5>🏆 Rank & Percentile</h5>${rankHtml}</div>`;
+
+  // ── 8. NEXT-TEST RECOMMENDATION (rule-based) ──────────────────────────────
+  const recos=[];
+  const weakSubs=attempted.filter(s=>s.accuracy<50).sort((a,b)=>a.accuracy-b.accuracy);
+  if(weakSubs.length) recos.push(`Focus revision on <b>${weakSubs.map(s=>s.name).join(', ')}</b> — accuracy is under 50% there.`);
+  const totalAttempted=subs.reduce((a,s)=>a+s.correct+s.wrong,0);
+  const totalSkipped=subs.reduce((a,s)=>a+s.skipped,0);
+  const totalPossible=totalAttempted+totalSkipped;
+  if(totalPossible>0 && totalSkipped/totalPossible>0.15) recos.push(`You skipped ${totalSkipped} question(s) (${Math.round(totalSkipped/totalPossible*100)}%). Attempt more questions${isNEET||isJEE?' where you can eliminate at least one option':''} to improve your score.`);
+  if(cur.timeTakenSec){
+    const ratio=(cur.timeTakenSec/qCount)/allottedSecPerQ;
+    if(ratio>1.1) recos.push('Practice with a stricter self-timer — you\'re spending more time per question than the test allows for comfortably.');
+    else if(ratio<0.6 && cur.accuracy<70) recos.push('You\'re finishing very fast with room to improve accuracy — slow down and re-read questions before answering.');
+  }
+  if((isNEET||isJEE) && cur.wrong>0 && cur.accuracy<60) recos.push('Negative marking is hurting your score — avoid guessing when unsure; skip instead of risking a wrong answer.');
+  if(!recos.length) recos.push('Solid, well-rounded performance — keep practicing at this level and try a harder test to push further.');
+
+  // Suggest a specific next test: first unlocked test of same stream not yet attempted
+  const attemptedNames=new Set(hist.map(h=>h.testName));
+  const nextTest=(tests||[]).find(t=>t.stream===cur.stream && t.unlocked && !attemptedNames.has(t.name));
+  let nextBtnHtml='';
+  if(nextTest){
+    nextBtnHtml=`<div class="sa-nextbtn"><button class="btn btn-pri btn-sm" onclick="goHome();setTimeout(()=>openInst('${nextTest.id}'),50)">Try: ${escHtml(nextTest.name)} →</button></div>`;
+  } else if(weakSubs.length){
+    nextBtnHtml=`<div class="sa-nextbtn"><button class="btn btn-out btn-sm" onclick="retakeTest()">Retake this test to improve ${escHtml(weakSubs[0].name)} →</button></div>`;
+  }
+  html+=`<div class="sa-block full"><h5>🎯 Next-Test Recommendation</h5><div class="sa-recobox"><ul>${recos.map(r=>`<li>${r}</li>`).join('')}</ul>${nextBtnHtml}</div></div>`;
+
+  grid.innerHTML=html;
 }
 
 // ═══════════════════════ PAYMENT — RAZORPAY ═══════════════════════
@@ -1455,20 +1968,67 @@ function _doUnlockAll(){
   const t=tests.find(tt=>tt.id===pendingPaid); if(t&&(t.qbank?.[0]?.length||t.qbank?.[1]?.length)) openInst(pendingPaid);
 }
 
-function startRazorpayPayment(){
-  const amountPaise=Math.round((parseFloat(settings.price)||30)*100);
+async function startRazorpayPayment(){
+  document.getElementById('rzp-pay-btn').style.display='none';
+  document.getElementById('pay-processing').style.display='block';
+
+  const amount = parseFloat(settings.price)||30;
+  let order;
+  try{
+    const res = await fetchWithRetry(`${API}/create-order`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ amount })
+    }, 2, 2000);
+    order = await res.json();
+    if(!order.orderId) throw new Error('No order id returned');
+  }catch(e){
+    console.error('Could not create payment order', e);
+    document.getElementById('pay-processing').style.display='none';
+    document.getElementById('rzp-pay-btn').style.display='block';
+    toast('⚠ Could not start payment. Check your connection and try again.');
+    return;
+  }
+
   const options={
-    key:getRzpKeyId(),
-    amount:amountPaise,
+    key: order.keyId,
+    order_id: order.orderId,
+    amount: order.amount,
     currency:'INR',
     name:'PrepXpert',
     description:'Unlock All Paid Tests',
     prefill:{name:currentUser?.name||'',contact:currentUser?.mobile||''},
-    theme:{color:'#1a237e'},
-    handler:function(response){
-      document.getElementById('pay-processing').style.display='none';
-      document.getElementById('pay-success-msg').style.display='block';
-      setTimeout(()=>{ _doUnlockAll(); },1200);
+    theme:{color:'#0d4f5c'},
+    handler:async function(response){
+      // Payment succeeded on Razorpay's side, but we do NOT unlock yet —
+      // first the server must verify the cryptographic signature.
+      try{
+        const verifyRes = await fetchWithRetry(`${API}/verify-payment`, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            mobile: currentUser?.mobile||'',
+            name: currentUser?.name||'',
+            amount
+          })
+        }, 2, 2000);
+        const result = await verifyRes.json();
+        if(result.verified){
+          document.getElementById('pay-processing').style.display='none';
+          document.getElementById('pay-success-msg').style.display='block';
+          setTimeout(()=>{ _doUnlockAll(); },1200);
+        } else {
+          throw new Error('Signature not verified');
+        }
+      }catch(e){
+        console.error('Payment verification failed', e);
+        document.getElementById('pay-processing').style.display='none';
+        document.getElementById('rzp-pay-btn').style.display='block';
+        toast('⚠ Payment could not be verified. If money was deducted, contact support — it was NOT unlocked automatically for your safety.');
+      }
     },
     modal:{
       ondismiss:function(){
@@ -1505,6 +2065,20 @@ function _openRzp(options){
 }
 
 // ═══════════════════════ MOBILE NAV HELPERS ═══════════════════════
+function toggleHdrMenu(){
+  const menu=document.getElementById('hdr-r');
+  const overlay=document.getElementById('hdr-menu-overlay');
+  const burger=document.getElementById('hdr-burger');
+  const isOpen=menu.classList.contains('on');
+  menu.classList.toggle('on',!isOpen);
+  overlay.classList.toggle('on',!isOpen);
+  burger.textContent=!isOpen?'✕':'☰';
+}
+function closeHdrMenu(){
+  document.getElementById('hdr-r').classList.remove('on');
+  document.getElementById('hdr-menu-overlay').classList.remove('on');
+  document.getElementById('hdr-burger').textContent='☰';
+}
 function toggleMobNav(){
   const sb=document.getElementById('exam-sb');
   if(!sb)return;
@@ -1616,6 +2190,8 @@ async function doRegister(){
   const mobile = document.getElementById('r-mobile').value.trim();
   const pass   = document.getElementById('r-pass').value;
   const pass2  = document.getElementById('r-pass2').value;
+  const secQ   = document.getElementById('r-secq').value;
+  const secA   = document.getElementById('r-seca').value.trim();
   const terms  = document.getElementById('r-terms').checked;
   if(!name){ showLErr('Enter your full name.'); return; }
   if(!/^\d{10}$/.test(mobile)){ showLErr('Enter a valid 10-digit mobile number.'); return; }
@@ -1623,11 +2199,14 @@ async function doRegister(){
   if(!/[A-Z]/.test(pass)){ showLErr('Password must have at least 1 uppercase letter.'); return; }
   if(!/[0-9]/.test(pass)){ showLErr('Password must have at least 1 number.'); return; }
   if(pass!==pass2){ showLErr('Passwords do not match.'); return; }
+  if(!secQ){ showLErr('Please choose a security question.'); return; }
+  if(!secA){ showLErr('Please enter an answer to your security question.'); return; }
   if(!terms){ showLErr('Please accept the Terms & Conditions.'); return; }
   const users=getUsers();
   if(users.find(u=>u.mobile===mobile)){ showLErr('Mobile already registered. Please sign in.'); return; }
   const hash = await sha256(pass);
-  const newUser={name,mobile,passwordHash:hash,joinedAt:new Date().toISOString(),scores:[]};
+  const secAHash = await sha256(secA.toLowerCase());
+  const newUser={name,mobile,passwordHash:hash,securityQ:secQ,securityAHash:secAHash,joinedAt:new Date().toISOString(),scores:[]};
   users.push(newUser); saveUsers(users);
   currentUser=newUser; localStorage.setItem('mhtcet_current_user',JSON.stringify(newUser));
   toast('✅ Account created! Welcome, '+name); enterApp();
@@ -1641,19 +2220,189 @@ function enterApp(){
   if(currentUser?.paid) localStorage.setItem('mhtcet_full_access','1');
   loadData(); renderHero(); renderSubStrip(); renderHome(); showScr('hs');
   syncFromServer(); // fetch the real shared question bank in the background
+  updateStreak();
 }
+// ═══════════════════════ LANGUAGE (i18n) ═══════════════════════
+// Translates the app's built-in UI text (buttons, labels, headings).
+// Note: question content and any text an admin types in (test names,
+// contact info, notifications) always stays in whatever language it
+// was entered in — only the app's own fixed interface is translated.
+const I18N={
+  en:{
+    submitTest:'Submit Test', rankings:'Rankings', myRank:'My Rank', contact:'Contact',
+    myBookmarks:'My Bookmarks', home:'Home', logout:'Logout',
+    signIn:'Sign In', register:'Register', mobileUsername:'Mobile / Username',
+    password:'Password', signInArrow:'Sign In →', fullName:'Full Name',
+    createAccountArrow:'Create Account →', freeTests:'Free Tests', paidTests:'Paid Tests',
+    pypTitle:'📄 Previous Year Papers',
+    enterMobile:'Enter mobile or username', enterPassword:'Enter password',
+    enterFullName:'Enter your full name'
+  },
+  hi:{
+    submitTest:'टेस्ट सबमिट करें', rankings:'रैंकिंग', myRank:'मेरी रैंक', contact:'संपर्क करें',
+    myBookmarks:'मेरे बुकमार्क', home:'होम', logout:'लॉगआउट',
+    signIn:'साइन इन करें', register:'रजिस्टर करें', mobileUsername:'मोबाइल / यूज़रनेम',
+    password:'पासवर्ड', signInArrow:'साइन इन करें →', fullName:'पूरा नाम',
+    createAccountArrow:'खाता बनाएं →', freeTests:'मुफ्त टेस्ट', paidTests:'पेड टेस्ट',
+    pypTitle:'📄 पिछले वर्षों के पेपर',
+    enterMobile:'मोबाइल या यूज़रनेम दर्ज करें', enterPassword:'पासवर्ड दर्ज करें',
+    enterFullName:'अपना पूरा नाम दर्ज करें'
+  }
+};
+let currentLang=localStorage.getItem('mhtcet_lang')||'en';
+function applyLanguage(){
+  const dict=I18N[currentLang]||I18N.en;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(dict[key]) el.textContent=dict[key];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const key=el.getAttribute('data-i18n-ph');
+    if(dict[key]) el.placeholder=dict[key];
+  });
+  const lbl=document.getElementById('lang-toggle-label');
+  if(lbl) lbl.textContent=currentLang==='en'?'EN / हिं':'हिं / EN';
+  document.documentElement.lang=currentLang;
+}
+function toggleLanguage(){
+  currentLang=currentLang==='en'?'hi':'en';
+  localStorage.setItem('mhtcet_lang',currentLang);
+  applyLanguage();
+  toast(currentLang==='hi'?'भाषा हिंदी में बदल दी गई':'Language switched to English');
+}
+
+
 function showLoginScreen(){
   document.getElementById('login-scr').style.display='flex';
   document.getElementById('main-hdr').style.display='none';
   document.querySelectorAll('.scr').forEach(s=>{s.classList.remove('on');s.style.display='none';});
 }
 
+// ═══════════════════════ STREAKS & BADGES ═══════════════════════
+const BADGES={
+  first_test:{icon:'🎯',label:'First Test',check:u=>u.scores&&u.scores.length>=1},
+  streak_3:{icon:'🔥',label:'3-Day Streak',check:u=>(u.streak||0)>=3},
+  streak_7:{icon:'⚡',label:'Week Warrior',check:u=>(u.streak||0)>=7},
+  streak_30:{icon:'👑',label:'30-Day Streak',check:u=>(u.streak||0)>=30},
+  high_scorer:{icon:'🌟',label:'90%+ Scorer',check:u=>u.scores&&u.scores.some(s=>s.totalMarks>0&&(s.score/s.totalMarks)>=0.9)},
+  ten_tests:{icon:'📚',label:'10 Tests Done',check:u=>u.scores&&u.scores.length>=10},
+  perfect:{icon:'💯',label:'Perfect Score',check:u=>u.scores&&u.scores.some(s=>s.totalMarks>0&&s.score>=s.totalMarks)}
+};
+function updateStreak(){
+  if(!currentUser)return;
+  const todayStr=new Date().toDateString();
+  const last=currentUser.lastActiveDate;
+  if(last!==todayStr){
+    const y=new Date(); y.setDate(y.getDate()-1);
+    currentUser.streak=(last===y.toDateString())?(currentUser.streak||0)+1:1;
+    currentUser.lastActiveDate=todayStr;
+    const users=getUsers(); const idx=users.findIndex(u=>u.mobile===currentUser.mobile);
+    if(idx>=0){ users[idx].streak=currentUser.streak; users[idx].lastActiveDate=todayStr; saveUsers(users); }
+    localStorage.setItem('mhtcet_current_user',JSON.stringify(currentUser));
+  }
+  checkBadges();
+}
+function checkBadges(){
+  if(!currentUser)return;
+  currentUser.badges=currentUser.badges||[];
+  const newBadges=[];
+  Object.keys(BADGES).forEach(id=>{
+    if(!currentUser.badges.includes(id)&&BADGES[id].check(currentUser)){
+      currentUser.badges.push(id); newBadges.push(id);
+    }
+  });
+  if(newBadges.length){
+    const users=getUsers(); const idx=users.findIndex(u=>u.mobile===currentUser.mobile);
+    if(idx>=0){ users[idx].badges=currentUser.badges; saveUsers(users); }
+    localStorage.setItem('mhtcet_current_user',JSON.stringify(currentUser));
+    newBadges.forEach(id=>toast(`🏅 New Badge: ${BADGES[id].label}!`));
+  }
+  renderStreakAndBadges();
+}
+function renderStreakAndBadges(){
+  if(!currentUser)return;
+  const strip=document.getElementById('streak-strip');
+  if(!strip)return;
+  const streak=currentUser.streak||0;
+  const badges=currentUser.badges||[];
+  if(streak<1&&!badges.length){ strip.style.display='none'; return; }
+  strip.style.display='flex';
+  document.getElementById('streak-num').textContent=streak;
+  document.getElementById('streak-fire-icon').textContent=streak>=7?'👑':streak>=3?'⚡':'🔥';
+  document.getElementById('badges-row').innerHTML=badges.map(id=>{
+    const b=BADGES[id]; if(!b)return '';
+    return `<div class="badge-chip"><span class="bi">${b.icon}</span>${b.label}</div>`;
+  }).join('');
+}
+
+// ═══════════════════════ FORGOT PASSWORD ═══════════════════════
+const SEC_QUESTIONS={
+  pet:'What was the name of your first pet?',
+  school:'What is the name of your school?',
+  city:'In which city were you born?',
+  mother:"What is your mother's first name?"
+};
+let fpUser=null;
+function openForgotPasswordModal(){
+  fpUser=null;
+  document.getElementById('fp-mobile').value='';
+  document.getElementById('fp-answer').value='';
+  document.getElementById('fp-newpass').value='';
+  document.getElementById('fp-newpass2').value='';
+  document.getElementById('fp-err').textContent='';
+  document.getElementById('fp-step1').style.display='block';
+  document.getElementById('fp-step2').style.display='none';
+  document.getElementById('fp-step3').style.display='none';
+  document.getElementById('fp-modal').classList.add('on');
+}
+function fpShowErr(msg){ document.getElementById('fp-err').textContent=msg; }
+function fpFindUser(){
+  const mobile=document.getElementById('fp-mobile').value.trim();
+  if(!/^\d{10}$/.test(mobile)){ fpShowErr('Enter a valid 10-digit mobile number.'); return; }
+  const users=getUsers();
+  const user=users.find(u=>u.mobile===mobile);
+  if(!user){ fpShowErr('No account found with this mobile number.'); return; }
+  if(!user.securityQ || !user.securityAHash){
+    fpShowErr('This account has no security question set up (created before this feature). Please contact support for help.');
+    return;
+  }
+  fpUser=user;
+  fpShowErr('');
+  document.getElementById('fp-question-label').textContent=SEC_QUESTIONS[user.securityQ]||'Security Question';
+  document.getElementById('fp-step1').style.display='none';
+  document.getElementById('fp-step2').style.display='block';
+}
+async function fpVerifyAnswer(){
+  const answer=document.getElementById('fp-answer').value.trim();
+  if(!answer){ fpShowErr('Enter your answer.'); return; }
+  const hash=await sha256(answer.toLowerCase());
+  if(hash!==fpUser.securityAHash){ fpShowErr('Incorrect answer. Please try again.'); return; }
+  fpShowErr('');
+  document.getElementById('fp-step2').style.display='none';
+  document.getElementById('fp-step3').style.display='block';
+}
+async function fpResetPassword(){
+  const p1=document.getElementById('fp-newpass').value;
+  const p2=document.getElementById('fp-newpass2').value;
+  if(p1.length<8){ fpShowErr('Password must be at least 8 characters.'); return; }
+  if(!/[A-Z]/.test(p1)){ fpShowErr('Password must have at least 1 uppercase letter.'); return; }
+  if(!/[0-9]/.test(p1)){ fpShowErr('Password must have at least 1 number.'); return; }
+  if(p1!==p2){ fpShowErr('Passwords do not match.'); return; }
+  const users=getUsers();
+  const idx=users.findIndex(u=>u.mobile===fpUser.mobile);
+  if(idx<0){ fpShowErr('Something went wrong. Try again.'); return; }
+  users[idx].passwordHash=await sha256(p1);
+  saveUsers(users);
+  closeModal('fp-modal');
+  toast('✅ Password reset! You can now sign in with your new password.');
+}
+
 // ═══════════════════════ RANKING ═══════════════════════
-function saveScore(testName,stream,score,totalMarks,correct,wrong,skipped){
+function saveScore(testName,stream,score,totalMarks,correct,wrong,skipped,subjects,timeTakenSec){
   if(!currentUser)return;
   const users=getUsers(); const idx=users.findIndex(u=>u.mobile===currentUser.mobile); if(idx<0)return;
   if(!users[idx].scores)users[idx].scores=[];
-  const entry={testName,stream,score,totalMarks,correct,wrong,skipped,accuracy:(correct+wrong)>0?Math.round(correct/(correct+wrong)*100):0,date:new Date().toLocaleDateString('en-IN'),ts:Date.now()};
+  const entry={testName,stream,score,totalMarks,correct,wrong,skipped,accuracy:(correct+wrong)>0?Math.round(correct/(correct+wrong)*100):0,date:new Date().toLocaleDateString('en-IN'),ts:Date.now(),subjects:subjects||[],timeTakenSec:timeTakenSec||0};
   users[idx].scores.push(entry); saveUsers(users);
   try{const flat=JSON.parse(localStorage.getItem('mhtcet_scores')||'[]');flat.push({mobile:currentUser.mobile,name:currentUser.name,...entry});if(flat.length>2000)flat.splice(0,flat.length-2000);localStorage.setItem('mhtcet_scores',JSON.stringify(flat));}catch(e){}
   currentUser=users[idx]; localStorage.setItem('mhtcet_current_user',JSON.stringify(currentUser));
@@ -1735,10 +2484,106 @@ function renderRanking(){
 
 // ═══════════════════════ UTILS ═══════════════════════
 function closeModal(id){document.getElementById(id).classList.remove('on');}
+function openBookmarksModal(){
+  document.getElementById('bookmarks-modal').classList.add('on');
+  renderBookmarksList();
+}
+function renderBookmarksList(){
+  const list=document.getElementById('bookmarks-list');
+  const bookmarks=(currentUser?.bookmarks||[]).slice().reverse();
+  if(!bookmarks.length){
+    list.innerHTML='<div style="text-align:center;color:var(--muted);font-size:12.5px;padding:24px 0">No bookmarked questions yet. Tap the 🔖 icon while taking a test to save tricky questions here.</div>';
+    return;
+  }
+  const ok=['A','B','C','D'];
+  list.innerHTML=bookmarks.map(b=>{
+    let ansHtml='';
+    if(b.isNumerical){
+      ansHtml=`<div style="font-size:12px;color:var(--ok);margin-top:6px"><b>Answer:</b> ${b.correctNum!==null?b.correctNum:'—'}</div>`;
+    } else if(b.opts && b.correct!==null){
+      ansHtml=`<div style="font-size:12px;color:var(--ok);margin-top:6px"><b>Answer:</b> ${ok[b.correct]}. ${escHtml(b.opts[b.correct]||'')}</div>`;
+    }
+    return `<div class="notif-item">
+      <div style="display:flex;justify-content:space-between;gap:8px">
+        <h6 style="margin-bottom:6px">${escHtml(b.testName)} · ${escHtml(b.subject)}</h6>
+        <button class="btn btn-err btn-sm" style="flex-shrink:0;padding:3px 8px;font-size:11px" onclick="removeBookmark('${b.key}')">🗑</button>
+      </div>
+      <p>${escHtml(b.question)}</p>
+      ${ansHtml}
+      ${b.sol?`<div style="font-size:11.5px;color:var(--muted);margin-top:6px"><b>💡 Solution:</b> ${escHtml(b.sol)}</div>`:''}
+    </div>`;
+  }).join('');
+}
+function removeBookmark(key){
+  if(!currentUser)return;
+  currentUser.bookmarks=(currentUser.bookmarks||[]).filter(b=>b.key!==key);
+  const users=getUsers(); const idx=users.findIndex(u=>u.mobile===currentUser.mobile);
+  if(idx>=0){ users[idx].bookmarks=currentUser.bookmarks; saveUsers(users); }
+  localStorage.setItem('mhtcet_current_user',JSON.stringify(currentUser));
+  renderBookmarksList();
+  updateBookmarkBtn();
+  toast('🗑 Bookmark removed');
+}
+
+
+function openTermsModal(){
+  const d=document.getElementById('terms-date');
+  if(d) d.textContent=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('terms-modal').classList.add('on');
+}
+
+// ═══════════════════════ NOTIFICATIONS ═══════════════════════
+let notifications=[];
+async function fetchNotifications(){
+  try{
+    const res=await fetchWithRetry(`${API}/notifications`,{},2,2000);
+    notifications=await res.json();
+    if(!Array.isArray(notifications)) notifications=[];
+    updateNotifBadge();
+  }catch(e){
+    console.warn('⚠️ Could not fetch notifications:',e.message);
+  }
+}
+function updateNotifBadge(){
+  const badge=document.getElementById('hdr-bell-badge');
+  if(!badge) return;
+  const lastSeen=parseInt(localStorage.getItem('mhtcet_notif_last_seen')||'0',10);
+  const unread=notifications.filter(n=>new Date(n.createdAt).getTime()>lastSeen).length;
+  if(unread>0){ badge.textContent=unread>9?'9+':unread; badge.style.display='flex'; }
+  else{ badge.style.display='none'; }
+}
+function renderNotifList(){
+  const list=document.getElementById('notif-list');
+  if(!notifications.length){
+    list.innerHTML='<div style="text-align:center;color:var(--muted);font-size:12.5px;padding:24px 0">No notifications yet.</div>';
+    return;
+  }
+  list.innerHTML=notifications.map(n=>{
+    const d=new Date(n.createdAt);
+    const timeStr=d.toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    return `<div class="notif-item">
+      ${n.title?`<h6>${escHtml(n.title)}</h6>`:''}
+      <p>${escHtml(n.message).replace(/\n/g,'<br>')}</p>
+      <div class="notif-time">${timeStr}</div>
+    </div>`;
+  }).join('');
+}
+async function toggleNotifPanel(){
+  document.getElementById('notif-modal').classList.add('on');
+  await fetchNotifications();
+  renderNotifList();
+  // Mark all as seen now that the user has opened the panel
+  if(notifications.length){
+    const latest=Math.max(...notifications.map(n=>new Date(n.createdAt).getTime()));
+    localStorage.setItem('mhtcet_notif_last_seen',String(latest));
+  }
+  updateNotifBadge();
+}
+
 function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000);}
 function showScr(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById(id)?.classList.add('on');}
-function goHome(){if(timerInt){clearInterval(timerInt);timerInt=null;}document.getElementById('timer').style.display='none';document.getElementById('sub-btn').style.display='none';document.getElementById('home-btn').style.display='inline-flex';loadData();renderHero();renderSubStrip();renderHome();showScr('hs');}
+function goHome(){if(timerInt){clearInterval(timerInt);timerInt=null;}document.getElementById('timer').style.display='none';document.getElementById('sub-btn').style.display='none';document.getElementById('home-btn').style.display='inline-flex';loadData();renderHero();renderSubStrip();renderHome();showScr('hs');renderStreakAndBadges();}
 window.addEventListener('click',e=>{if(e.target.classList.contains('modal-ov'))closeModal(e.target.id);if(e.target.classList.contains('conf-ov'))closeModal(e.target.id);});
 
 // ═══════════════════════ EXAM INTEGRITY ═══════════════════════
@@ -1943,6 +2788,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (inp) inp.addEventListener('keydown', e => {
     if (e.key === 'Enter') sdFindStudent();
   });
+  applyLanguage();
 });
 
 function sdFindStudent() {
